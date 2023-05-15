@@ -1,21 +1,28 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Tab 2
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
+    <ion-header collapse="condense">
     <ion-toolbar>
       <ion-title size="large">Tab 2</ion-title>
     </ion-toolbar>
   </ion-header>
+  <br><br><br><br>
+
+  <ion-chip (click)="choseTaskType(taskType)" class="taskType" *ngFor="let taskType of taskTypes">{{taskType}}</ion-chip>
 
   <ion-list>
-    <ion-item *ngFor="let task of tasks">
-      <ion-text>{{task | json}}</ion-text>
+    <ion-header class="taskTypeHeader">{{chosenTaskType}}</ion-header>
+    <ion-item routerLink="task-info" button detail="true" *ngFor="let task of currentTypeTasks"> 
+      <ion-fab-button class="checkmarkButton"><ion-icon class="checkmarkIcon" name="checkmark-sharp" size="large"></ion-icon></ion-fab-button>
+      <ion-label>
+        <h2>{{task.Title}}</h2>
+        <p class="description">{{task.Description}}</p>
+      </ion-label>
     </ion-item>
   </ion-list>
+
+  <ion-fab slot="fixed" vertical="bottom" horizontal="end" class="addButton">
+    <ion-fab-button>
+      <ion-icon class="plusSign" name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>

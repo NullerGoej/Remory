@@ -8,4 +8,5 @@ export interface Task {
     Reminder: number;
     Gps: string;
     UserId: number;
+    Type: string;
 }

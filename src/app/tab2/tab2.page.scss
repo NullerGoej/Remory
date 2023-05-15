@@ -1,0 +1,43 @@
+.plusSign{
+    scale: 1.5;
+}
+
+.description{
+    color: rgb(130, 130, 130);
+}
+
+ion-list{
+    background-color: #121212 // the same color as the background
+}
+
+.taskTypeHeader{
+    margin-left: 10px; // big hacks
+    font-weight: 700;
+}
+
+.taskType{
+    border: solid red 1px;
+    background-color:#121212;
+}
+
+ion-item{
+    border-radius: 15px;
+    border: solid green 1px;
+    margin: 10px;
+}
+
+.checkmarkButton{
+    margin-right: 20px;
+    background-color: #3872D4;
+    border-radius: 15px; // it appears there are two shapes, one circle the other a square with the border radius, which is dropping a shadow
+    scale: 0.7;
+}
+
+.checkmarkIcon{
+    //font-weight: bold; // how do you make icons really bold?
+}
+
+ion-fab-button::part(native) {
+    background-color:#3872D4;
+    box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.3), 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+}

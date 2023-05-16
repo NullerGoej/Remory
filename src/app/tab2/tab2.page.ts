@@ -1,9 +1,10 @@
-import { Component, ElementRef, QueryList, ViewChildren } from '@angular/core';
+import { Component, ElementRef, QueryList, ViewChildren, inject } from '@angular/core';
 import { IonChip, IonicModule } from '@ionic/angular';
 import { ExploreContainerComponent } from '../explore-container/explore-container.component';
 import { CommonModule } from '@angular/common';
 import { Task } from '../interfaces/task';
 import { RouterModule } from '@angular/router';
+import { DatabaseService } from '../services/database.service';
 
 export enum taskType { 
  // wait how do you do this if the user can create their own task type?
@@ -19,6 +20,8 @@ export enum taskType {
   imports: [IonicModule, CommonModule, RouterModule, ExploreContainerComponent]
 })
 export class Tab2Page {
+
+  //dbService: DatabaseService = inject(DatabaseService);
 
   taskTypes: string[] = ["All", "Husholdning", "Handlinger", "Løse ting"];
   chosenTaskType: string = "Husholdning";
@@ -100,7 +103,7 @@ export class Tab2Page {
     for (let i = 0; i < chipsArray.length; i++) {
       if (chipsArray[i].nativeElement.innerText === chipValue) {
         chipsArray[i].nativeElement.classList.toggle('chosen');
-        chipsArray[i].nativeElement.setElementStyle("background-color","black");
+        //chipsArray[i].nativeElement.setElementStyle("background-color","black");
           // now how do we change it's color?
           
       }

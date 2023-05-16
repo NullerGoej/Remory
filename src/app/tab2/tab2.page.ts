@@ -37,6 +37,10 @@ export class Tab2Page {
    this.getAllCategories();
   }
 
+  // need to be able to make check marks and have the red dot if not checked
+  // oh and also we need to check the timestamp and all that, though maybe that should be checked in a service
+  // like hey is it a new day? then we need to reset all the tasks that needs to be reset that day
+
   getAllTasks(): void {
     this.taskService.getAll().subscribe((data: any) => {
       this.tasks = data;

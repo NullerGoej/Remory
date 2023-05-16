@@ -53,4 +53,8 @@ export class DatabaseService {
     }
     return this.loggedInUSer;
   }
+
+  getCheckMarkedTasks(){
+    //task are done or something
+  }
 }

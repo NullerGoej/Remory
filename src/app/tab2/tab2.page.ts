@@ -68,7 +68,6 @@ export class Tab2Page {
   choseTaskType(task: string){ 
     // not very efficient
     // suppose for each task type the user has you would cache a list for each one and simply switch out the list, and not redo the filtering of the list
-    console.log("Calling choseTaskType");
     this.currentCategoryTasks.splice(0); // clear array
     this.chosenTaskType = task; 
 
@@ -79,9 +78,6 @@ export class Tab2Page {
     }
     else{
       for (var i = 0; i < this.tasks.length; i++){
-        console.log("Pushing to list");
-        console.log(this.tasks[i].title);
-        console.log(task);
         if(this.getCategoryNameFromTaskCategoryId(this.tasks[i].category_id) == task) this.currentCategoryTasks.push(this.tasks[i]);
       }
     }
@@ -89,26 +85,20 @@ export class Tab2Page {
   }
 
   getCategoryNameFromTaskCategoryId(id: number): string{
-
       for (let i = 0; i < this.categories.length; i++) {
-        if(this.categories[i].category_id == id) {
-          console.log("Found this");
-          console.log(this.categories[i].title);
+        if(this.categories[i].category_id == id) 
           return this.categories[i].title; 
-        }
       }
       return "All";
   }
 
   toggleChip(chipValue: string) {
-    console.log(chipValue);
     const chipsArray = this.taskChips.toArray();
     for (let i = 0; i < chipsArray.length; i++) {
       if (chipsArray[i].nativeElement.innerText === chipValue) {
         chipsArray[i].nativeElement.classList.toggle('chosen');
         //chipsArray[i].nativeElement.setElementStyle("background-color","black");
           // now how do we change it's color?
-          
       }
       else chipsArray[i].nativeElement.classList.remove('chosen');
     }

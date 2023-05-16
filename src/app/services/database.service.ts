@@ -22,7 +22,6 @@ export class DatabaseService {
     this.userService.get(id)
       .subscribe(
         data => {
-          console.log("in user subscription");
           console.log(data);
           this.loggedInUSer = data;
         },
@@ -35,7 +34,6 @@ export class DatabaseService {
     this.taskService.getAll()
       .subscribe(
         data => {
-          console.log("in tasks subscription");
           console.log(data);
           this.tasks = data;
         },
@@ -45,8 +43,7 @@ export class DatabaseService {
   }
 
   getAllTasks(): any[] {
-    console.log("in getAllTasks");
-          console.log(this.tasks);
+    console.log(this.tasks);
     return this.tasks;
   }
 
@@ -54,6 +51,6 @@ export class DatabaseService {
     if(this.loggedInUSer == undefined) {
       this.getUser(1);
     }
-      return this.loggedInUSer;
+    return this.loggedInUSer;
   }
 }

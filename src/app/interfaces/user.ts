@@ -1,6 +1,6 @@
 export interface Task {
-    UserId: number;
-    Name: string;
-    Email: string;
-    Password: string;
+    user_id: number;
+    name: string;
+    email: string;
+    password: string;
 }

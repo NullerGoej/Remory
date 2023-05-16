@@ -8,6 +8,6 @@ export class Task {
     reminder: number = 0;
     gps: string = "";
     user_id: number = 0;
-    //category_id: number = 0;
+    category_id: number = 0;
     type: string = "";
 }

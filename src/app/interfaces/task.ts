@@ -1,13 +1,12 @@
 export interface Task {
-    TaskId: number;
-    Title: string;
-    Description: string;
-    Time: string;
-    StartDate: string;
-    Repeat: string;
-    Reminder: number;
-    Gps: string;
-    UserId: number;
-    //category_id: number;
-    Type: string;
+    task_id: number;
+    title: string;
+    description: string;
+    time: string;
+    start_date: string;
+    repeat: string;
+    reminder: number;
+    gps: string;
+    user_id: number;
+    category_id: number;
 }

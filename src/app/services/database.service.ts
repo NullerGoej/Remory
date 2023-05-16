@@ -11,14 +11,15 @@ export class DatabaseService {
   tasks: any[] = [];
 
   constructor(private taskService: TaskService, private userService: UserService, private router: Router) {
-    this.getAllData();
+    //this.getAllData();
+    //this.getAllTasks();
   }
 
   private getAllData(): void {
     this.taskService.getAll()
       .subscribe(
         data => {
-          console.log("in subscription");
+          console.log("in takss subscription");
           console.log(data);
           this.tasks = data;
         },

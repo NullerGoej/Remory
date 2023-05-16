@@ -6,12 +6,8 @@ import { Task } from '../interfaces/task';
 import { RouterModule } from '@angular/router';
 import { DatabaseService } from '../services/database.service';
 import { TaskService } from '../services/task.service';
-
-export enum taskType { 
- // wait how do you do this if the user can create their own task type?
- //
- // Suppose you would have a string with "," that seperates types and you check which of these types are chosen
-}
+import { CategoryService } from '../services/category.service';
+import { Category } from '../models/category';
 
 @Component({
   selector: 'app-tab2',
@@ -24,97 +20,79 @@ export class Tab2Page {
 
   dbService: DatabaseService = inject(DatabaseService);
   taskService: TaskService = inject(TaskService);
+  categoryService: CategoryService = inject(CategoryService);
 
-  dbTasks: Task[] = [];
+  tasks: Task[] = [];
+  categories: Category[] = [];
 
-  taskTypes: string[] = ["All", "Husholdning", "Handlinger", "Løse ting"];
+  categoryNames: string[] = ["All", "Husholdning", "Handlinger", "Løse ting"]; // really only need the names
   chosenTaskType: string = "Husholdning";
 
   @ViewChildren(IonChip, { read: ElementRef }) taskChips!: QueryList<ElementRef>;
 
-  currentTypeTasks: Task[] = [];
-
-  // dummy data
-  private tasks: Task[] = [{ // only display the ones with the chosen type
-    "TaskId": 1,
-    "Title": "Clean",
-    "Description": "the roof",
-    "Time": "10-10-2023",
-    "StartDate": "10-10-2023",
-    "Repeat": "1,2",
-    "Reminder": 5,
-    "Gps": "longitude: 15, latitude: 10",
-    "UserId": 1,
-    "Type": "Husholdning"
-  },
-  {
-    "TaskId": 2,
-    "Title": "Clean",
-    "Description": "the kitchen",
-    "Time": "10-10-2023",
-    "StartDate": "10-10-2023",
-    "Repeat": "1,2",
-    "Reminder": 5,
-    "Gps": "longitude: 15, latitude: 10",
-    "UserId": 2,
-    "Type": "Husholdning"
-  },
-  {
-    "TaskId": 3,
-    "Title": "Exercise",
-    "Description": "Go outside",
-    "Time": "10-10-2023",
-    "StartDate": "10-10-2023",
-    "Repeat": "1,2",
-    "Reminder": 5,
-    "Gps": "longitude: 15, latitude: 10",
-    "UserId": 2,
-    "Type": "Handlinger"
-  },
-]; 
-
-//"category_id": 1
+  currentCategoryTasks: Task[] = [];
 
   constructor() {
-   // this.dbTasks = this.dbService.getAllTasks();
-
-  }
-
-  ngAfterViewInit(): void {
-    this.currentTypeTasks = this.choseTaskType(this.chosenTaskType); // the view with chips has to load before we can work with the data
-    //this.dbTasks = this.dbService.getAllTasks();
-    this.getAllTasks();
+   this.getAllTasks(); // this is the first thing we need to get
+   this.getAllCategories();
   }
 
   getAllTasks(): void {
     this.taskService.getAll().subscribe((data: any) => {
-      this.dbTasks = data;
+      this.tasks = data;
+      for (let i = 0; i < this.tasks.length; i++) { // danm object reference
+        this.currentCategoryTasks.push(this.tasks[i]);   
+      }
     });
   }
 
-  choseTaskType(taskType: string){ 
+  getAllCategories(): void {
+    let cat = new Category();
+    cat.title = "All";
+    this.categoryService.getAll().subscribe((data: any) => { 
+      this.categories = data; // TODO, only get the categories for that user!!
+      this.categories.splice(0,0, cat);
+      this.categories.join();
+    });
+  }
+
+  choseTaskType(task: string){ 
     // not very efficient
     // suppose for each task type the user has you would cache a list for each one and simply switch out the list, and not redo the filtering of the list
+    console.log("Calling choseTaskType");
+    this.currentCategoryTasks.splice(0); // clear array
+    this.chosenTaskType = task; 
 
-    this.currentTypeTasks.splice(0); // clear array
-    this.chosenTaskType = taskType;
-
-    if(taskType == "All") {
-      //this.currentTypeTasks = this.tasks; // why wont this work?
+    if(task == "All") {
       for (var i = 0; i < this.tasks.length; i++){
-        this.currentTypeTasks.push(this.tasks[i]);
+        this.currentCategoryTasks.push(this.tasks[i]);
       }
     }
     else{
       for (var i = 0; i < this.tasks.length; i++){
-        if(this.tasks[i].Type == taskType) this.currentTypeTasks.push(this.tasks[i]);
+        console.log("Pushing to list");
+        console.log(this.tasks[i].title);
+        console.log(task);
+        if(this.getCategoryNameFromTaskCategoryId(this.tasks[i].category_id) == task) this.currentCategoryTasks.push(this.tasks[i]);
       }
     }
-    this.toggleChip(taskType);
-    return this.currentTypeTasks;
+    this.toggleChip(task);
+  }
+
+  getCategoryNameFromTaskCategoryId(id: number): string{
+
+      for (let i = 0; i < this.categories.length; i++) {
+        if(this.categories[i].category_id == id) {
+          console.log("Found this");
+          console.log(this.categories[i].title);
+          return this.categories[i].title; 
+        }
+      }
+      return "All";
   }
 
   toggleChip(chipValue: string) {
+    console.log(chipValue);
     const chipsArray = this.taskChips.toArray();
     for (let i = 0; i < chipsArray.length; i++) {
       if (chipsArray[i].nativeElement.innerText === chipValue) {

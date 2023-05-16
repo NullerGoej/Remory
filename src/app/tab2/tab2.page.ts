@@ -51,6 +51,15 @@ export class Tab2Page {
     cat.title = "All";
     this.categoryService.getAll().subscribe((data: any) => { 
       this.categories = data; // TODO, only get the categories for that user!!
+
+      // you should be able to do that with the api route and param
+      //for now though
+
+      for (let i = 0; i < this.categories.length; i++) {
+        if(this.categories[i].user_id != this.dbService.getLoggedInUser().user_id) {
+          this.categories.splice(i, 1);
+        }
+      }
       this.categories.splice(0,0, cat);
       this.categories.join();
     });

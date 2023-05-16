@@ -2,6 +2,10 @@
     scale: 1.5;
 }
 
+.addButton{
+    margin: 10px;
+}
+
 .description{
     color: rgb(130, 130, 130);
 }
@@ -12,12 +16,20 @@ ion-list{
 
 .taskTypeHeader{
     margin-left: 10px; // big hacks
+    font-size: large;
+    margin-bottom: -8px;
     font-weight: 700;
 }
 
 .taskType{
-    border: solid red 1px;
+    border: solid #D3264F 1px;
     background-color:#121212;
+    // need to change the background and border color on the selected chip, hmm
+}
+
+.chosen{
+    border: solid #D3264F 1px;
+    background-color:#D3264F;
 }
 
 ion-item{

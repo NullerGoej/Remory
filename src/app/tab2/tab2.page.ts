@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { IonicModule } from '@ionic/angular';
+import { Component, ElementRef, QueryList, ViewChildren } from '@angular/core';
+import { IonChip, IonicModule } from '@ionic/angular';
 import { ExploreContainerComponent } from '../explore-container/explore-container.component';
 import { CommonModule } from '@angular/common';
 import { Task } from '../interfaces/task';
@@ -16,15 +16,18 @@ export enum taskType {
   templateUrl: 'tab2.page.html',
   styleUrls: ['tab2.page.scss'],
   standalone: true,
-  imports: [IonicModule, CommonModule, RouterModule, ExploreContainerComponent,]
+  imports: [IonicModule, CommonModule, RouterModule, ExploreContainerComponent]
 })
 export class Tab2Page {
 
-  taskTypes: string[] = ["Husholdning", "Handlinger", "Løse ting"];
+  taskTypes: string[] = ["All", "Husholdning", "Handlinger", "Løse ting"];
   chosenTaskType: string = "Husholdning";
+
+  @ViewChildren(IonChip, { read: ElementRef }) taskChips!: QueryList<ElementRef>;
 
   currentTypeTasks: Task[] = [];
 
+  // dummy data
   private tasks: Task[] = [{ // only display the ones with the chosen type
     "TaskId": 1,
     "Title": "Clean",
@@ -64,22 +67,45 @@ export class Tab2Page {
 ]; 
 
   constructor() {
-    this.currentTypeTasks = this.choseTaskType("Husholdning");
+  }
+
+  ngAfterViewInit(): void {
+    this.currentTypeTasks = this.choseTaskType(this.chosenTaskType); // the view with chips has to load before we can work with the data
   }
 
   choseTaskType(taskType: string){ 
-
     // not very efficient
     // suppose for each task type the user has you would cache a list for each one and simply switch out the list, and not redo the filtering of the list
 
     this.currentTypeTasks.splice(0); // clear array
+    this.chosenTaskType = taskType;
 
-    for (var i = 0; i < this.tasks.length; i++){
-      if(this.tasks[i].Type == taskType) this.currentTypeTasks.push(this.tasks[i]);
+    if(taskType == "All") {
+      //this.currentTypeTasks = this.tasks; // why wont this work?
+      for (var i = 0; i < this.tasks.length; i++){
+        this.currentTypeTasks.push(this.tasks[i]);
+      }
     }
-
+    else{
+      for (var i = 0; i < this.tasks.length; i++){
+        if(this.tasks[i].Type == taskType) this.currentTypeTasks.push(this.tasks[i]);
+      }
+    }
+    this.toggleChip(taskType);
     return this.currentTypeTasks;
   }
 
+  toggleChip(chipValue: string) {
+    const chipsArray = this.taskChips.toArray();
+    for (let i = 0; i < chipsArray.length; i++) {
+      if (chipsArray[i].nativeElement.innerText === chipValue) {
+        chipsArray[i].nativeElement.classList.toggle('chosen');
+        chipsArray[i].nativeElement.setElementStyle("background-color","black");
+          // now how do we change it's color?
+          
+      }
+      else chipsArray[i].nativeElement.classList.remove('chosen');
+    }
+  }
 
 }

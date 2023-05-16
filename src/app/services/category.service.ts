@@ -1,30 +1,30 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Task } from '../models/task';
+import { Category } from '../models/category';
 
-const baseUrl = 'http://moedekjaer.dk:8080/api/tasks';
+const baseUrl = 'http://moedekjaer.dk:8080/api/Categories';
 
 @Injectable({
   providedIn: 'root'
 })
-export class TaskService {
+export class CategoryService {
 
   constructor(private http: HttpClient) { }
 
-  getAll(): Observable<Task[]> {
-    return this.http.get<Task[]>(baseUrl);
+  getAll(): Observable<Category[]> {
+    return this.http.get<Category[]>(baseUrl);
   }
 
-  get(id: number): Observable<Task> {
-    return this.http.get<Task>(`${baseUrl}/${id}`);
+  get(id: number): Observable<Category> {
+    return this.http.get<Category>(`${baseUrl}/${id}`);
   }
 
-  create(data: Task): Observable<any> {
+  create(data: Category): Observable<any> {
     return this.http.post(baseUrl, data);
   }
 
-  update(id: number, data: Task): Observable<any> {
+  update(id: number, data: Category): Observable<any> {
     console.log(data)
     return this.http.put(`${baseUrl}/${id}`, data);
   }

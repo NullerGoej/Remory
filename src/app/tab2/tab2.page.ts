@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { Task } from '../interfaces/task';
 import { RouterModule } from '@angular/router';
 import { DatabaseService } from '../services/database.service';
+import { TaskService } from '../services/task.service';
 
 export enum taskType { 
  // wait how do you do this if the user can create their own task type?
@@ -21,7 +22,10 @@ export enum taskType {
 })
 export class Tab2Page {
 
-  //dbService: DatabaseService = inject(DatabaseService);
+  dbService: DatabaseService = inject(DatabaseService);
+  taskService: TaskService = inject(TaskService);
+
+  dbTasks: Task[] = [];
 
   taskTypes: string[] = ["All", "Husholdning", "Handlinger", "Løse ting"];
   chosenTaskType: string = "Husholdning";
@@ -69,11 +73,23 @@ export class Tab2Page {
   },
 ]; 
 
+//"category_id": 1
+
   constructor() {
+   // this.dbTasks = this.dbService.getAllTasks();
+
   }
 
   ngAfterViewInit(): void {
     this.currentTypeTasks = this.choseTaskType(this.chosenTaskType); // the view with chips has to load before we can work with the data
+    //this.dbTasks = this.dbService.getAllTasks();
+    this.getAllTasks();
+  }
+
+  getAllTasks(): void {
+    this.taskService.getAll().subscribe((data: any) => {
+      this.dbTasks = data;
+    });
   }
 
   choseTaskType(taskType: string){ 

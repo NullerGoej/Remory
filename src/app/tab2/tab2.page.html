@@ -20,6 +20,17 @@
     </ion-item>
   </ion-list>
 
+  <ion-list>
+    <ion-header class="taskTypeHeader">{{chosenTaskType}}</ion-header>
+    <ion-item routerLink="task-info" button detail="true" *ngFor="let task of dbTasks"> 
+      <ion-fab-button class="checkmarkButton"><ion-icon class="checkmarkIcon" name="checkmark-sharp" size="large"></ion-icon></ion-fab-button>
+      <ion-label>
+        <h2>{{task.Title}}</h2>
+        <p class="description">{{task.Description}}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
   <ion-fab slot="fixed" vertical="bottom" horizontal="end" class="addButton">
     <ion-fab-button>
       <ion-icon class="plusSign" name="add"></ion-icon>

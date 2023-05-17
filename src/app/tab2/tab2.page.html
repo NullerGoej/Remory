@@ -5,8 +5,8 @@
 
   <ion-list>
     <ion-header class="taskTypeHeader">{{chosenTaskType}}</ion-header>
-    <ion-item routerLink="task-info" button detail="true" *ngFor="let task of currentCategoryTasks"> 
-      <ion-fab-button class="checkmarkButton"><ion-icon class="checkmarkIcon" name="checkmark-sharp" size="large"></ion-icon></ion-fab-button>
+    <ion-item  button detail="true" *ngFor="let task of currentCategoryTasks"> 
+      <ion-checkbox (ionChange)="checkOfTask(task)" class="checkmarkButton"></ion-checkbox>
       <ion-label>
         <h2>{{task.title}}</h2>
         <p class="description">{{task.description}}</p>

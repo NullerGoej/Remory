@@ -14,6 +14,25 @@ ion-list{
     background-color: #121212 // the same color as the background
 }
 
+ion-checkbox {
+    --border-radius: 15px;
+    margin: -10px;
+    --size: 50px;
+    scale: 0.7;
+    --checkbox-background-checked: #6815ec;
+    --checkbox-background: red;
+}
+
+.checkmarkButtonChecked{ // the class is being set but the style is not being applied, not sure how to do it
+    // change the color of the checkbox to blue
+    // give it a border
+ 
+    // I suppose you could also just have used a simple template, and switched between them
+    // but then how do you get the value of off them if they are set to true or not?
+
+    // say I set this class and then I set a block icon if it has the class, or just use templates
+}
+
 .taskTypeHeader{
     margin-left: 10px; // big hacks
     font-size: large;
@@ -40,16 +59,6 @@ ion-item{
 
 .checkmarkButton{
     margin-right: 20px;
-    background-color: #3872D4;
-    border-radius: 15px; // it appears there are two shapes, one circle the other a square with the border radius, which is dropping a shadow
-    scale: 0.7;
-}
+    margin-left: 0px;
 
-// .checkmarkIcon{
-//     //font-weight: bold; // how do you make icons really bold?
-// }
-
-ion-fab-button::part(native) {
-    background-color:#3872D4;
-    box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.3), 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
 }

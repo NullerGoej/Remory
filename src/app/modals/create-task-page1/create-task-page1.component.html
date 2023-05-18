@@ -1,3 +1,15 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title class="ion-text-center">Create Tasks</ion-title>
+    <ion-buttons slot="start">
+      <ion-button (click)="cancel()">Cancel</ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button style="visibility: hidden;">Cancel</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
 <h2>Title</h2>
 <ion-card class="typingBox">
   <ion-input class="typingInput" type="text"></ion-input>
@@ -7,3 +19,5 @@
   <ion-textarea label="Write a helpful description" labelPlacement="floating"
   [counter]="true" maxlength="100" [counterFormatter]="customCounterFormatter"></ion-textarea>
 </ion-card>
+</ion-content>
+<!--Why does it look so weird on the page?-->

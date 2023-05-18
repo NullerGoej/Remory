@@ -2,18 +2,18 @@
   <br><br><br><br>
 
   <div class="categoryChips">
-    <ion-chip (click)="choseTaskType(category.title)" class="taskType" *ngFor="let category of categories">{{category.title}}</ion-chip>
+    <ion-chip (click)="choseTaskCategory(category.title)" class="taskType" *ngFor="let category of categories">{{category.title}}</ion-chip>
     <ion-fab class="smallFab" (click)="openTaskModal()" slot="fixed" horizontal="end">
-      <ion-fab-button (click)="openCategoryModal()">
+      <ion-fab-button (click)="presentCreateCategoryModal()">
         <ion-icon class="plusSign" name="add"></ion-icon>
       </ion-fab-button>
     </ion-fab>
   </div>
 
   <ion-list>
-    <ion-header class="taskTypeHeader">{{chosenTaskType}}</ion-header>
+    <ion-header class="taskTypeHeader">{{chosenTaskCategory}}</ion-header>
     <ion-item *ngFor="let task of currentCategoryTasks"> 
-      <ion-checkbox checked="false" (ionChange)="checkOfTask(task)" class="checkmarkButton"></ion-checkbox>
+        <ion-checkbox checked="false" (ionChange)="checkOfTask(task)" class="checkmarkButton"></ion-checkbox>
       <ion-label >
         <h2>{{task.title}}</h2>
         <p>{{task.description}}</p>

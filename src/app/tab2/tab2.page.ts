@@ -1,5 +1,5 @@
 import { Component, ElementRef, QueryList, ViewChildren, inject } from '@angular/core';
-import { CheckboxChangeEventDetail, IonCheckbox, IonChip, IonItem, IonicModule } from '@ionic/angular';
+import { IonChip, IonItem, IonicModule, ModalController } from '@ionic/angular';
 import { ExploreContainerComponent } from '../explore-container/explore-container.component';
 import { CommonModule } from '@angular/common';
 import { Task } from '../interfaces/task';
@@ -10,6 +10,8 @@ import { CategoryService } from '../services/category.service';
 import { Category } from '../models/category';
 import { TaskDoneService } from '../services/task_done.service.';
 import { TaskDone } from '../models/task_done';
+import { CreateCategoryComponent } from '../modals/create-category/create-category.component';
+import { CreateTaskPage1Component } from '../modals/create-task-page1/create-task-page1.component';
 
 @Component({
   selector: 'app-tab2',
@@ -29,18 +31,33 @@ export class Tab2Page {
   currentCategoryTasks: Task[] = [];
   categories: Category[] = [];
 
-  chosenTaskType: string = "Husholdning";
+  chosenTaskCategory: string = "Husholdning"; // by default! Question, should there not exist some defualt categories on first start up, or should users first create a category?
 
   @ViewChildren(IonChip, { read: ElementRef }) taskChips!: QueryList<ElementRef>;
   @ViewChildren(IonItem, { read: ElementRef }) taskItem!: QueryList<ElementRef>;
 
-  constructor() {
+  constructor(private modalController: ModalController) {
    this.getAllTasks(); // this is the first thing we need to get
    this.getAllCategories();
   }
 
+  async presentCreateCategoryModal() { // still a bunch of code just to use a object/component
+    const modal = await this.modalController.create({  // we create a modal from the existing modal Component class so to say, you could switch out the component to create
+      component: CreateCategoryComponent,
+    });
+      await modal.present(); 
+  }
+
+  async openTaskModal(){
+    // hmm it opens both modals when opening them back and forth, are you not supposed to have more than one modal on a page? should you have multiple modal controllers? nope that didn't work
+    const modal = await this.modalController.create({  // we create a modal from the existing modal Component class so to say, you could switch out the component to create
+      component: CreateTaskPage1Component,
+    });
+      await modal.present(); 
+  }
+
   // need to check the timestamp and all that, though maybe that should be checked in a service
-  // like hey is it a new day? then we need to reset all the tasks that needs to be reset that day
+  // need to check if a task_done with the specific task_id has a date equal to today to know weather or not the task has been completed
 
   getAllTasks(): void {
     this.taskService.getAll().subscribe((data: any) => {
@@ -83,20 +100,15 @@ export class Tab2Page {
     //   //get error message at the very least!
     // }); 
 
-    // when it is checked off, then we change it's color and whatnot
-    // the page needs to know which ones of the tasks are checked off, hmm
-    // I then need a list of booleans that corresponds to the tasks? ARGH
-
-
     // dude I'm so confused how to do this
     this.toggleCheckBoxes();
   }
 
-  choseTaskType(taskTitle: string){ 
-    // not very efficient
-    // suppose for each task type the user has you would cache a list for each one and simply switch out the list, and not redo the filtering of the list
+  choseTaskCategory(taskTitle: string){      // not very efficient
+    
+    // all the boxes get's reset when chosing a new category
     this.currentCategoryTasks.splice(0); // clear array
-    this.chosenTaskType = taskTitle; 
+    this.chosenTaskCategory = taskTitle; 
 
     if(taskTitle == "All") {
       for (var i = 0; i < this.tasks.length; i++){
@@ -120,16 +132,16 @@ export class Tab2Page {
   }
 
   toggleCheckBoxes(){ // you only select one, could you somehow just send the selected element?
-    const chipsArray = this.taskItem.toArray();
-    for (let i = 0; i < chipsArray.length; i++) {
-      if (chipsArray[i].nativeElement.children[0].checked === true) { 
-        chipsArray[i].nativeElement.children[1].children[1].classList.add('hideDescription');  // sigh what a big mess of code
-        chipsArray[i].nativeElement.classList.add('checkmarkButtonChecked'); 
-        // make this class not have a description and be smalller
+    const taskItems = this.taskItem.toArray();
+    for (let i = 0; i < taskItems.length; i++) {
+      let el = taskItems[i].nativeElement;
+      if (el.children[0].checked === true) { 
+        el.children[1].children[1].classList.add('hideDescription');  // sigh what a big mess of code
+        el.classList.add('checkmarkButtonChecked'); 
       }
       else{
-        chipsArray[i].nativeElement.children[1].children[1].classList.remove('hideDescription'); 
-        chipsArray[i].nativeElement.classList.remove('checkmarkButtonChecked');
+        el.children[1].children[1].classList.remove('hideDescription'); 
+        el.classList.remove('checkmarkButtonChecked');
       } 
     }
   }
@@ -140,35 +152,9 @@ export class Tab2Page {
       if (chipsArray[i].nativeElement.innerText === chipValue) {
         chipsArray[i].nativeElement.classList.toggle('chosen');
         continue;
-          // now how do we change it's color?
       }
       else chipsArray[i].nativeElement.classList.remove('chosen');
     }
   }
-
-  hasClass(task: Task){
-
-    task.task_id
-
-    const chipsArray = this.taskItem.toArray();
-    for (let i = 0; i < chipsArray.length; i++) {
-      if (chipsArray[i].nativeElement.children[0].checked === true) { 
-        chipsArray[i].nativeElement.classList.add('checkmarkButtonChecked'); 
-        // make this class not have a description and be smalller
-      }
-      else{
-        chipsArray[i].nativeElement.classList.remove('checkmarkButtonChecked');
-      } 
-    }
-  }
-
-  openCategoryModal(){
-
-  }
-
-  openTaskModal(){
-    
-  }
-
 
 }

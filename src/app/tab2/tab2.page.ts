@@ -1,5 +1,5 @@
 import { Component, ElementRef, QueryList, ViewChildren, inject } from '@angular/core';
-import { CheckboxChangeEventDetail, IonCheckbox, IonChip, IonicModule } from '@ionic/angular';
+import { CheckboxChangeEventDetail, IonCheckbox, IonChip, IonItem, IonicModule } from '@ionic/angular';
 import { ExploreContainerComponent } from '../explore-container/explore-container.component';
 import { CommonModule } from '@angular/common';
 import { Task } from '../interfaces/task';
@@ -32,15 +32,14 @@ export class Tab2Page {
   chosenTaskType: string = "Husholdning";
 
   @ViewChildren(IonChip, { read: ElementRef }) taskChips!: QueryList<ElementRef>;
-  @ViewChildren(IonCheckbox, { read: ElementRef }) taskCheckBoxes!: QueryList<ElementRef>;
+  @ViewChildren(IonItem, { read: ElementRef }) taskItem!: QueryList<ElementRef>;
 
   constructor() {
    this.getAllTasks(); // this is the first thing we need to get
    this.getAllCategories();
   }
 
-  // need to be able to make check marks and have the red dot if not checked
-  // oh and also we need to check the timestamp and all that, though maybe that should be checked in a service
+  // need to check the timestamp and all that, though maybe that should be checked in a service
   // like hey is it a new day? then we need to reset all the tasks that needs to be reset that day
 
   getAllTasks(): void {
@@ -121,14 +120,15 @@ export class Tab2Page {
   }
 
   toggleCheckBoxes(){ // you only select one, could you somehow just send the selected element?
-    const chipsArray = this.taskCheckBoxes.toArray();
+    const chipsArray = this.taskItem.toArray();
     for (let i = 0; i < chipsArray.length; i++) {
-      if (chipsArray[i].nativeElement.checked == true) {
-        //console.log("We set checkBox to checkmark on")
-        chipsArray[i].nativeElement.classList.toggle('checkmarkButtonChecked'); // it doesn't seem to change the style
+      if (chipsArray[i].nativeElement.children[0].checked === true) { 
+        chipsArray[i].nativeElement.children[1].children[1].classList.add('hideDescription');  // sigh what a big mess of code
+        chipsArray[i].nativeElement.classList.add('checkmarkButtonChecked'); 
+        // make this class not have a description and be smalller
       }
       else{
-        //console.log("We set checkBox to checkmark off")
+        chipsArray[i].nativeElement.children[1].children[1].classList.remove('hideDescription'); 
         chipsArray[i].nativeElement.classList.remove('checkmarkButtonChecked');
       } 
     }
@@ -145,5 +145,30 @@ export class Tab2Page {
       else chipsArray[i].nativeElement.classList.remove('chosen');
     }
   }
+
+  hasClass(task: Task){
+
+    task.task_id
+
+    const chipsArray = this.taskItem.toArray();
+    for (let i = 0; i < chipsArray.length; i++) {
+      if (chipsArray[i].nativeElement.children[0].checked === true) { 
+        chipsArray[i].nativeElement.classList.add('checkmarkButtonChecked'); 
+        // make this class not have a description and be smalller
+      }
+      else{
+        chipsArray[i].nativeElement.classList.remove('checkmarkButtonChecked');
+      } 
+    }
+  }
+
+  openCategoryModal(){
+
+  }
+
+  openTaskModal(){
+    
+  }
+
 
 }

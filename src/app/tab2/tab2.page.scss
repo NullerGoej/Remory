@@ -2,12 +2,24 @@
     scale: 1.5;
 }
 
-.addButton{
+ion-fab-button{
     margin: 10px;
+    --background:#3872D4;
 }
 
-.description{
-    color: rgb(130, 130, 130);
+.smallFab{
+    scale: 0.5;
+    transform: translate(0,-35px);
+    // not on line
+}
+
+.categoryChips{
+    margin-left: 5px;
+}
+
+.hideDescription{
+    color: transparent;
+    transition: 200ms;
 }
 
 ion-list{
@@ -15,26 +27,29 @@ ion-list{
 }
 
 ion-checkbox {
-    --border-radius: 15px;
-    margin: -10px;
-    --size: 50px;
     scale: 0.7;
-    --checkbox-background-checked: #6815ec;
-    --checkbox-background: red;
+    margin: -10px;
+    --border-radius: 15px;
+    --size: 50px;
+    --checkbox-background-checked: #3872D4;
+    --checkbox-background: #D3264F;
 }
 
-.checkmarkButtonChecked{ // the class is being set but the style is not being applied, not sure how to do it
-    // change the color of the checkbox to blue
-    // give it a border
- 
-    // I suppose you could also just have used a simple template, and switched between them
-    // but then how do you get the value of off them if they are set to true or not?
+.checkmarkButtonChecked{ 
+    border-radius: 15px;
+    border: solid green 2px;
+    margin: -10px; // had 10 as default
+    margin-top: 5px;
+    scale: 0.8;
 
-    // say I set this class and then I set a block icon if it has the class, or just use templates
+    transform: translate(-26px,0);
+    transition: 200ms;
+
+    // how do I change it to be smaller(narrower) and remove the description, and have the title be centered
 }
 
 .taskTypeHeader{
-    margin-left: 10px; // big hacks
+    margin-left: 11px; // big hacks
     font-size: large;
     margin-bottom: -8px;
     font-weight: 700;
@@ -53,12 +68,12 @@ ion-checkbox {
 
 ion-item{
     border-radius: 15px;
-    border: solid green 1px;
+    border: solid rgba(0, 128, 0, 0) 2px;
     margin: 10px;
+    transition: 200ms;
 }
 
 .checkmarkButton{
     margin-right: 20px;
     margin-left: 0px;
-
 }

@@ -1,3 +1,9 @@
-<p>
-  create-task-page1 works!
-</p>
+<h2>Title</h2>
+<ion-card class="typingBox">
+  <ion-input class="typingInput" type="text"></ion-input>
+</ion-card>
+<h2>Description</h2>
+<ion-card class="typingBox">
+  <ion-textarea label="Write a helpful description" labelPlacement="floating"
+  [counter]="true" maxlength="100" [counterFormatter]="customCounterFormatter"></ion-textarea>
+</ion-card>

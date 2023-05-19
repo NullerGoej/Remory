@@ -29,11 +29,11 @@ export class CreateTaskPage1Component  implements OnInit {
   }
 
   openNextTaskModal(){
-    
+
   }
 
-  cancel(){
-    this.modalController.dismiss();
+  async cancel(){
+    await this.modalController.dismiss();
   }
 
 }

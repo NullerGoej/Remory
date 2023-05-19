@@ -23,6 +23,7 @@ import { CreateTaskPage1Component } from '../modals/create-task-page1/create-tas
 export class Tab2Page {
 
   today: Date = new Date();
+  chosenCategory: string = "Husholdning"; 
 
   dbService: DatabaseService = inject(DatabaseService);
   taskService: TaskService = inject(TaskService);
@@ -34,12 +35,10 @@ export class Tab2Page {
   currentCategoryTasks: Task[] = [];
   categories: Category[] = [];
 
-  chosenCategory: string = "Husholdning"; // by default! Question, should there not exist some defualt categories on first start up, or should users first create a category?
-
   @ViewChildren(IonChip, { read: ElementRef }) taskChips!: QueryList<ElementRef>;
   @ViewChildren(IonItem, { read: ElementRef }) taskItem!: QueryList<ElementRef>;
 
-  constructor(private modalController: ModalController) {
+  constructor(private modalController: ModalController) { // shift + alt + f to format in vs code
    this.getAllTasks(); // this is the first thing we need to get
    this.getAllCategories();
   }
@@ -52,8 +51,7 @@ export class Tab2Page {
   }
 
   async openTaskModal(){
-    // hmm it opens both modals when opening them back and forth, are you not supposed to have more than one modal on a page? should you have multiple modal controllers? nope that didn't work
-    const modal = await this.modalController.create({  // we create a modal from the existing modal Component class so to say, you could switch out the component to create
+    const modal = await this.modalController.create({  
       component: CreateTaskPage1Component,
     });
       await modal.present(); 
@@ -62,7 +60,7 @@ export class Tab2Page {
   // need to check the timestamp and all that, though maybe that should be checked in a service
   // need to check if a task_done with the specific task_id has a date equal to today to know weather or not the task has been completed
 
-  getAllTasks(): void {
+  async getAllTasks(): Promise<void> {
     this.taskService.getAll().subscribe((data: any) => {
       this.tasks = data;
       for (let i = 0; i < this.tasks.length; i++) { // danm object reference
@@ -71,7 +69,7 @@ export class Tab2Page {
     });
   }
 
-  getAllCategories(): void {
+  async getAllCategories(): Promise<void> {
     let cat = new Category();
     cat.title = "All";
     this.categoryService.getAll().subscribe((data: any) => { 
@@ -130,7 +128,7 @@ export class Tab2Page {
         }
       }
     // we check them against task_done
-    // we then asign them a on or off value
+    // we then assign them a on or off value
     // we then call toggleCheckboxes which will apply the style
   }
 
@@ -147,10 +145,12 @@ export class Tab2Page {
     // does the database check that? it could right?  
 
     // we post a task done object
-    let taskDone = new TaskDone(this.today.getDate().toString(), task.task_id);
-    // this.taskDoneService.create(taskDone).subscribe((data: any) => {
-    //   //get error message at the very least!
-    // }); 
+    let taskDone = new TaskDone(new Date().toISOString(), task.task_id);
+    console.log(JSON.stringify(taskDone)); // the object is identical to the one I send with postman, yet it throws an error when posting it from here
+    this.taskDoneService.create(taskDone).subscribe((data: any) => {
+      //get error message at the very least!
+      let d = data;
+    }); 
 
     // dude I'm so confused how to do this
     this.toggleCheckBoxes();

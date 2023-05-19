@@ -25,8 +25,8 @@ export class CreateCategoryComponent{
     });
   }
 
-  cancel(){
-    this.modalController.dismiss();
+  async cancel(){
+    await this.modalController.dismiss();
   }
 
   createCategory(){

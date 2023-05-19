@@ -22,16 +22,19 @@ import { CreateTaskPage1Component } from '../modals/create-task-page1/create-tas
 })
 export class Tab2Page {
 
+  today: Date = new Date();
+
   dbService: DatabaseService = inject(DatabaseService);
   taskService: TaskService = inject(TaskService);
   taskDoneService: TaskDoneService = inject(TaskDoneService);
   categoryService: CategoryService = inject(CategoryService);
 
   tasks: Task[] = [];
+  tasks_dones: TaskDone[] = []; 
   currentCategoryTasks: Task[] = [];
   categories: Category[] = [];
 
-  chosenTaskCategory: string = "Husholdning"; // by default! Question, should there not exist some defualt categories on first start up, or should users first create a category?
+  chosenCategory: string = "Husholdning"; // by default! Question, should there not exist some defualt categories on first start up, or should users first create a category?
 
   @ViewChildren(IonChip, { read: ElementRef }) taskChips!: QueryList<ElementRef>;
   @ViewChildren(IonItem, { read: ElementRef }) taskItem!: QueryList<ElementRef>;
@@ -75,7 +78,7 @@ export class Tab2Page {
       this.categories = data; // TODO, only get the categories for that user!!
 
       // you should be able to do that with the api route and param
-      //for now though
+      // for now though
 
       for (let i = 0; i < this.categories.length; i++) {
         if(this.categories[i].user_id != this.dbService.getLoggedInUser().user_id) {
@@ -87,6 +90,55 @@ export class Tab2Page {
     });
   }
 
+  // we have a list of categories, check
+  // we have a list of all tasks, check
+  // we create a temp list of tasks that have the given category, check
+
+  // we check if that temp list of tasks has any of them being done
+  // if yes we assign them a specific style
+  // if no, it has it's default style
+
+  sortTasks(){
+  
+  }
+
+  async checkTasksDone(){
+
+    // I have a list of tasks depending on the category
+    // with that list i need to check weather they are done
+
+    const taskItems = this.taskItem.toArray();
+    // we get a list of tasks
+      await this.taskDoneService.getAll().subscribe((data: any) =>{
+        this.tasks_dones = data; 
+      });
+      for (let i = 0; i < this.currentCategoryTasks.length; i++){
+        for (let j = 0; j < this.tasks_dones.length; j++){
+
+          if(this.currentCategoryTasks[i].task_id == this.tasks_dones[j].task_id){
+            // we have a task and it's task done id
+            if(this.checkDate(this.tasks_dones[j].timeStamp)){
+              
+              let el = taskItems[i].nativeElement;
+              el.children[1].children[1].classList.add('hideDescription');  
+              el.classList.add('checkmarkButtonChecked'); 
+              // we got the value we wanted for this task, go next
+              break;
+            }
+            // if we find one with a date of today, that task has been done and should be true
+          }
+        }
+      }
+    // we check them against task_done
+    // we then asign them a on or off value
+    // we then call toggleCheckboxes which will apply the style
+  }
+
+  checkDate(date: string): boolean {
+    if(date == this.today.getDate().toString()) return true;
+    return false;
+  }
+
   checkOfTask(task: any){
     //alert(JSON.stringify(task));
     // what if you check it on and then check it of again?
@@ -95,7 +147,7 @@ export class Tab2Page {
     // does the database check that? it could right?  
 
     // we post a task done object
-    let taskDone = new TaskDone(Date.now().toString(), task.task_id);
+    let taskDone = new TaskDone(this.today.getDate().toString(), task.task_id);
     // this.taskDoneService.create(taskDone).subscribe((data: any) => {
     //   //get error message at the very least!
     // }); 
@@ -104,23 +156,26 @@ export class Tab2Page {
     this.toggleCheckBoxes();
   }
 
-  choseTaskCategory(taskTitle: string){      // not very efficient
+  choseCategory(categoryTitle: string){      // not very efficient
     
     // all the boxes get's reset when chosing a new category
-    this.currentCategoryTasks.splice(0); // clear array
-    this.chosenTaskCategory = taskTitle; 
 
-    if(taskTitle == "All") {
+    this.currentCategoryTasks.splice(0); // clear array
+    this.chosenCategory = categoryTitle; 
+
+    // we make the list of tasks with the chosen category
+    if(categoryTitle == "All") {
       for (var i = 0; i < this.tasks.length; i++){
         this.currentCategoryTasks.push(this.tasks[i]);
       }
     }
     else{
       for (var i = 0; i < this.tasks.length; i++){
-        if(this.getCategoryNameFromTaskCategoryId(this.tasks[i].category_id) == taskTitle) this.currentCategoryTasks.push(this.tasks[i]);
+        if(this.getCategoryNameFromTaskCategoryId(this.tasks[i].category_id) == categoryTitle) this.currentCategoryTasks.push(this.tasks[i]);
       }
     }
-    this.toggleChip(taskTitle);
+    this.checkTasksDone();
+    this.toggleChip(categoryTitle); // we highlight the chosen category chip
   }
 
   getCategoryNameFromTaskCategoryId(id: number): string{
@@ -131,6 +186,8 @@ export class Tab2Page {
       return "All";
   }
 
+
+  // how would you set them based on the list of taks from the database?
   toggleCheckBoxes(){ // you only select one, could you somehow just send the selected element?
     const taskItems = this.taskItem.toArray();
     for (let i = 0; i < taskItems.length; i++) {

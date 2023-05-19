@@ -19,5 +19,10 @@
   <ion-textarea label="Write a helpful description" labelPlacement="floating"
   [counter]="true" maxlength="100" [counterFormatter]="customCounterFormatter"></ion-textarea>
 </ion-card>
+
+<ion-fab (click)="openNextTaskModal()" slot="fixed" vertical="bottom" horizontal="center">
+  <ion-fab-button>
+    <ion-icon name="arrow-forward-outline"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
 </ion-content>
-<!--Why does it look so weird on the page?-->

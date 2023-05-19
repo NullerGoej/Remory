@@ -28,6 +28,10 @@ export class CreateTaskPage1Component  implements OnInit {
     return `${maxLength - inputLength} characters remaining`;
   }
 
+  openNextTaskModal(){
+    
+  }
+
   cancel(){
     this.modalController.dismiss();
   }

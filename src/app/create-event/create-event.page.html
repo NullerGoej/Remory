@@ -1,0 +1,21 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title class="ion-text-center">Create event
+    </ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button class="backButton"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <h2>Title</h2>
+  <ion-card class="typingBox">
+    <ion-input class="typingInput" type="text"></ion-input>
+  </ion-card>
+  <h2>Description</h2>
+  <ion-card class="typingBox">
+    <ion-textarea label="Write a helpful description" labelPlacement="floating"
+    [counter]="true" maxlength="100" [counterFormatter]="customCounterFormatter"></ion-textarea>
+  </ion-card>
+</ion-content>

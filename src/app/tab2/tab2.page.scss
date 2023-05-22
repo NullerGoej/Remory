@@ -1,0 +1,64 @@
+.plusSign{
+    scale: 1.5;
+}
+
+.addButton{
+    margin: 10px;
+}
+
+.description{
+    color: rgb(130, 130, 130);
+}
+
+ion-list{
+    background-color: #121212 // the same color as the background
+}
+
+ion-checkbox {
+    --border-radius: 15px;
+    margin: -10px;
+    --size: 50px;
+    scale: 0.7;
+    --checkbox-background-checked: #6815ec;
+    --checkbox-background: red;
+}
+
+.checkmarkButtonChecked{ // the class is being set but the style is not being applied, not sure how to do it
+    // change the color of the checkbox to blue
+    // give it a border
+ 
+    // I suppose you could also just have used a simple template, and switched between them
+    // but then how do you get the value of off them if they are set to true or not?
+
+    // say I set this class and then I set a block icon if it has the class, or just use templates
+}
+
+.taskTypeHeader{
+    margin-left: 10px; // big hacks
+    font-size: large;
+    margin-bottom: -8px;
+    font-weight: 700;
+}
+
+.taskType{
+    border: solid #D3264F 1px;
+    background-color:#121212;
+    // need to change the background and border color on the selected chip, hmm
+}
+
+.chosen{
+    border: solid #D3264F 1px;
+    background-color:#D3264F;
+}
+
+ion-item{
+    border-radius: 15px;
+    border: solid green 1px;
+    margin: 10px;
+}
+
+.checkmarkButton{
+    margin-right: 20px;
+    margin-left: 0px;
+
+}

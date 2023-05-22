@@ -1,17 +1,22 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Tab 2
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 2</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <br><br><br><br>
 
-  <app-explore-container name="Tab 2 page"></app-explore-container>
+  <ion-chip (click)="choseTaskType(category.title)" class="taskType" *ngFor="let category of categories">{{category.title}}</ion-chip>
+
+  <ion-list>
+    <ion-header class="taskTypeHeader">{{chosenTaskType}}</ion-header>
+    <ion-item  button detail="true" *ngFor="let task of currentCategoryTasks"> 
+      <ion-checkbox (ionChange)="checkOfTask(task)" class="checkmarkButton"></ion-checkbox>
+      <ion-label>
+        <h2>{{task.title}}</h2>
+        <p class="description">{{task.description}}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <ion-fab routerLink="../../create-event" slot="fixed" vertical="bottom" horizontal="end" class="addButton">
+    <ion-fab-button>
+      <ion-icon class="plusSign" name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>

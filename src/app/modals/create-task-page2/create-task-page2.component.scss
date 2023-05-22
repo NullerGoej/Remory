@@ -1,0 +1,54 @@
+ion-toolbar{
+    color: white;
+    --ion-toolbar-background: #121212;
+}
+
+ion-tabs{
+    --ion-tab-bar-color: white;
+    --ion-tab-bar-background: #121212;
+}
+
+ion-fab-button{
+    margin-bottom: 100px;
+    --background:#3872D4;
+}
+
+h2 {
+    margin-left: 11px; // big hacks
+    font-size: large;
+    margin-bottom: -8px;
+    font-weight: 700;
+}
+
+ion-range{
+    scale: 0.8;
+}
+
+.description{
+    margin-left: 11px; // big hacks
+    margin-top: 2px;
+    margin-bottom: -8px;
+    font-size: small;
+    color: #797979;
+}
+
+ion-range::part(tick){
+    height: 13px;
+    width: 13px;
+    top: 15px;
+    border-radius: 50%;
+    background: #bde0fe;
+}
+
+ion-range::part(tick-active){
+    height: 13px;
+    width: 13px;
+    top: 15px;
+    border-radius: 50%;
+    background: #3872D4;
+}
+
+ion-range::part(knob) {
+    background: #3872D4;
+    scale: 2;
+  }

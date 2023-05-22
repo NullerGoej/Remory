@@ -2,8 +2,8 @@ export class Task {
     task_id: number = 0;
     title: string = "";
     description: string = "";
-    time: string = "";
-    start_date: string = "";
+    time: Date = new Date();
+    start_date: Date = new Date();
     repeat: string = "";
     reminder: number = 0;
     gps: string = "";

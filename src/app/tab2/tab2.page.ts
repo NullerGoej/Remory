@@ -41,6 +41,17 @@ export class Tab2Page {
   constructor(private modalController: ModalController) { // shift + alt + f to format in vs code
    this.getAllTasks(); // this is the first thing we need to get
    this.getAllCategories();
+   setInterval(this.updateTime, 1000 * 60,); // every minute
+
+    let d = new Date();
+    d.setDate(d.getDate() + 1)
+
+   this.checkDate(d);
+  }
+
+  updateTime(){
+    this.today = new Date(); // then call and check if there are new tasks
+    this.getAllTasks();
   }
 
   async presentCreateCategoryModal() { // still a bunch of code just to use a object/component
@@ -132,8 +143,20 @@ export class Tab2Page {
     // we then call toggleCheckboxes which will apply the style
   }
 
-  checkDate(date: string): boolean {
-    if(date == this.today.getDate().toString()) return true;
+  checkDate(date: Date): boolean {
+    //console.log(this.today.toDateString()); // toDateString writes the month in letters, aka useless
+    var dateToday = this.today.getDate() + '/' + (this.today.getMonth()+1) + '/' + this.today.getFullYear(); // why isn't there a function for this?
+    var checkDate = date.getDate() + '/' + (date.getMonth()+1) + '/' + date.getFullYear(); 
+
+
+    var tommorowDateTime = new Date().getTime() + (1 * 24 * 60 * 60 * 1000); // 24 hours in the future
+    var currentDateTime = date.getTime() + (1 * 24 * 60 * 60 * 1000);
+                                     
+    if (currentDateTime < tommorowDateTime) { // wait how do we also not get past ones?
+      
+    }
+
+    if(checkDate == dateToday) return true; // well we need to check if it is within 24 hours of today
     return false;
   }
 
@@ -145,7 +168,8 @@ export class Tab2Page {
     // does the database check that? it could right?  
 
     // we post a task done object
-    let taskDone = new TaskDone(new Date().toISOString(), task.task_id);
+    this.today.setDate(Date.now());
+    let taskDone = new TaskDone(this.today, task.task_id);
     console.log(JSON.stringify(taskDone)); // the object is identical to the one I send with postman, yet it throws an error when posting it from here
     this.taskDoneService.create(taskDone).subscribe((data: any) => {
       //get error message at the very least!

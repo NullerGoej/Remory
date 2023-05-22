@@ -1,0 +1,79 @@
+.plusSign{
+    scale: 1.5;
+}
+
+ion-fab-button{
+    margin: 10px;
+    --background:#3872D4;
+}
+
+.smallFab{
+    scale: 0.5;
+    transform: translate(0,-35px);
+    // not on line
+}
+
+.categoryChips{
+    margin-left: 5px;
+}
+
+.hideDescription{
+    color: transparent;
+    transition: 200ms;
+}
+
+ion-list{
+    background-color: #121212 // the same color as the background
+}
+
+ion-checkbox {
+    scale: 0.7;
+    margin: -10px;
+    --border-radius: 15px;
+    --size: 50px;
+    --checkbox-background-checked: #3872D4;
+    --checkbox-background: #D3264F;
+}
+
+.checkmarkButtonChecked{ 
+    border-radius: 15px;
+    border: solid green 2px;
+    margin: -10px; // had 10 as default
+    margin-top: 5px;
+    scale: 0.8;
+
+    transform: translate(-26px,0);
+    transition: 200ms;
+
+    // how do I change it to be smaller(narrower) and remove the description, and have the title be centered
+}
+
+.taskTypeHeader{
+    margin-left: 11px; // big hacks
+    font-size: large;
+    margin-bottom: -8px;
+    font-weight: 700;
+}
+
+.taskType{
+    border: solid #D3264F 1px;
+    background-color:#121212;
+    // need to change the background and border color on the selected chip, hmm
+}
+
+.chosen{
+    border: solid #D3264F 1px;
+    background-color:#D3264F;
+}
+
+ion-item{
+    border-radius: 15px;
+    border: solid rgba(0, 128, 0, 0) 2px;
+    margin: 10px;
+    transition: 200ms;
+}
+
+.checkmarkButton{
+    margin-right: 20px;
+    margin-left: 0px;
+}

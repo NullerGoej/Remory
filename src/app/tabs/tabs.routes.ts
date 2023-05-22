@@ -33,4 +33,9 @@ export const routes: Routes = [
     redirectTo: '/tabs/tab1',
     pathMatch: 'full',
   },
+  {
+    path: 'tabs/tab2/task-info',
+    loadComponent: () => import('../tab2/task-info/task-info.page').then( m => m.TaskInfoPage)
+  },
+
 ];

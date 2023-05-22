@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title class="ion-text-center">Create Tasks</ion-title>
+    <ion-title class="ion-text-center">Location</ion-title>
     <ion-text class="ion-text-center">Optional(3/3)</ion-text>
     <ion-buttons slot="start">
       <ion-button (click)="cancel()">Cancel</ion-button>
@@ -11,18 +11,8 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <form [formGroup]="createForm">
-    <h2>Time</h2>
-    <ion-text class="description">Set a time for the task</ion-text>
-    <ion-card class="typingBox">
-      <ion-input
-        class="typingInput"
-        type="time"
-        formControlName="Time"
-      ></ion-input>
-    </ion-card>
-  </form>
-  <ion-fab (click)="finishTaskModal()" slot="fixed" vertical="bottom" horizontal="center">
+  <ion-input [(ngModel)]="gps">GPS: {{gps}}</ion-input>
+  <ion-fab (click)="finishTaskModal()" slot="fixed" vertical="bottom" horizontal="center"> 
     <ion-fab-button>
       <ion-icon name="arrow-forward-outline"></ion-icon>
     </ion-fab-button>

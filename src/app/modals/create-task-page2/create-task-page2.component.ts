@@ -5,6 +5,7 @@ import { IonicModule, ModalController, RangeCustomEvent } from '@ionic/angular';
 import { RouterModule } from '@angular/router';
 import { CreateTaskPage3Component } from '../create-task-page3/create-task-page3.component';
 import { RangeValue } from '@ionic/core';
+import { DatabaseService } from 'src/app/services/database.service';
 
 @Component({
   selector: 'app-create-task-page2',
@@ -19,7 +20,7 @@ export class CreateTaskPage2Component  implements OnInit {
   sliderText: string = "";
   createForm!: FormGroup; 
 
-  constructor(private formBuilder: FormBuilder, private modalController: ModalController) {}
+  constructor(private formBuilder: FormBuilder, private databaseService: DatabaseService, private modalController: ModalController) {}
 
   ngOnInit(){
     this.createForm = this.formBuilder.group({
@@ -28,13 +29,16 @@ export class CreateTaskPage2Component  implements OnInit {
       StartDate: ['', [Validators.required]],
       Reminder: ['', [Validators.required, Validators.min(1), Validators.max(7)]],
     });
+
+    console.log("Page2 writing task object");
+    console.log(JSON.stringify(this.databaseService.createTask));
   }
 
-  async presentCreateTaskPage2Modal() { // still a bunch of code just to use a object/component
+  async presentCreateTaskPage3Modal() { // still a bunch of code just to use a object/component
     const modal = await this.modalController.create({  // we create a modal from the existing modal Component class so to say, you could switch out the component to create
       component: CreateTaskPage3Component,
     });
-      await modal.present(); 
+    await modal.present(); 
   }
 
   pinFormatter(value: number) {
@@ -94,8 +98,12 @@ export class CreateTaskPage2Component  implements OnInit {
   }
 
   openNextTaskModal(){
-    this.presentCreateTaskPage2Modal();
-    console.log(this.createForm.value);
+    this.databaseService.createTask.time = this.createForm.value.Time;
+    this.databaseService.createTask.repeat = this.createForm.value.Repeat;
+    this.databaseService.createTask.start_date = this.createForm.value.StartDate;
+    this.databaseService.createTask.reminder = this.createForm.value.Reminder;
+    this.presentCreateTaskPage3Modal();
+    //console.log(this.createForm.value);
   }
 
   async cancel(){

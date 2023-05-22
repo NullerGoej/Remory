@@ -3,6 +3,7 @@ import { TaskService } from './task.service';
 import { Router } from '@angular/router';
 import { UserService } from './user.service';
 import { User } from '../models/user';
+import { Task } from '../models/task';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,9 @@ import { User } from '../models/user';
 export class DatabaseService {
 
   loggedInUSer!: User;
-  tasks: any[] = [];
+  tasks: Task[] = [];
+
+  createTask: Task = new Task();
 
   constructor(private taskService: TaskService, private userService: UserService, private router: Router) {
     //this.getAllData();

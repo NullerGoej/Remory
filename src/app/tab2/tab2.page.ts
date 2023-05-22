@@ -41,7 +41,7 @@ export class Tab2Page {
   constructor(private modalController: ModalController) { // shift + alt + f to format in vs code
    this.getAllTasks(); // this is the first thing we need to get
    this.getAllCategories();
-   setInterval(this.updateTime, 1000 * 60,); // every minute
+   setInterval(() => { this.updateTime() }, 1000 * 60);
 
     let d = new Date();
     d.setDate(d.getDate() + 1)
@@ -51,7 +51,7 @@ export class Tab2Page {
 
   updateTime(){
     this.today = new Date(); // then call and check if there are new tasks
-    this.getAllTasks();
+    this.getAllTasks(); // this add more task to the existing ones, no good
   }
 
   async presentCreateCategoryModal() { // still a bunch of code just to use a object/component

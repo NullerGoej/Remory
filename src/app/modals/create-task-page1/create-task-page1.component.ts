@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { IonicModule, ModalController } from '@ionic/angular';
 import { RouterModule } from '@angular/router';
 import { CreateTaskPage2Component } from '../create-task-page2/create-task-page2.component';
+import { DatabaseService } from 'src/app/services/database.service';
 
 @Component({
   selector: 'app-create-task-page1',
@@ -14,10 +15,9 @@ import { CreateTaskPage2Component } from '../create-task-page2/create-task-page2
 })
 export class CreateTaskPage1Component  implements OnInit {
 
-  // hmm now the form is on the modal. Will each modal have it's own formGroup? But then how do you combine and gather all the form groups into one
   createForm!: FormGroup; 
 
-  constructor(private formBuilder: FormBuilder, private modalController: ModalController) { }
+  constructor(private formBuilder: FormBuilder, private databaseService: DatabaseService, private modalController: ModalController) { }
 
   ngOnInit(){
     this.createForm = this.formBuilder.group({
@@ -37,9 +37,11 @@ export class CreateTaskPage1Component  implements OnInit {
     return `${maxLength - inputLength} characters remaining`;
   }
 
-  openNextTaskModal(){
+  openNextTaskModal(){ // it's really slow on transitioning
+    this.databaseService.createTask.title = this.createForm.value.Title;
+    this.databaseService.createTask.description = this.createForm.value.Description;
     this.presentCreateTaskPage2Modal();
-    console.log(this.createForm.value);
+    //console.log(this.createForm.value);
   }
 
   async cancel(){

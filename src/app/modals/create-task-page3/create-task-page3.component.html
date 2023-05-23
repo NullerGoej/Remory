@@ -1,4 +1,4 @@
-<!-- <ion-header>
+<ion-header>
   <ion-toolbar>
     <ion-title class="ion-text-center">Location</ion-title>
     <ion-text class="ion-text-center">Optional(3/3)</ion-text>
@@ -10,39 +10,14 @@
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
-<ion-content> -->
 
-  <!-- <ion-input [(ngModel)]="gps">GPS: {{gps}}</ion-input>
-  <ion-fab (click)="finishTaskModal()" slot="fixed" vertical="bottom" horizontal="center"> 
+<ion-content (click)="getCoordinates($event)">
+  <h1>le map</h1>
+  <div class="map" id="map"></div>
+  <img class="Circle" src="assets/images/Circle.png" />
+  <ion-fab (click)="finishTaskModal()" slot="fixed" vertical="bottom" horizontal="center">
     <ion-fab-button>
       <ion-icon name="arrow-forward-outline"></ion-icon>
     </ion-fab-button>
   </ion-fab>
-</ion-content> -->
-
-<head>
-  <meta charset=utf-8 />
-  <title>A simple map</title>
-  <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
-  <script src='https://api.mapbox.com/mapbox.js/v3.3.1/mapbox.js'></script>
-
-  <style>
-    body { margin:0; padding:0; }
-    #map { position:absolute; top:0; bottom:0; width:100%; }
-  </style>
-  </head>
-  <body>
-    <ion-content (click)="getCoordinates($event)">
-    <h1>le map</h1>
-  <div id='map'></div>
-  <img class="Circle" src="assets/images/Circle.png">
-  <!-- <script>
-  L.mapbox.accessToken = 'pk.eyJ1IjoiamVmZnJpeW8iLCJhIjoiY2xoenluc3gxMWk3dDNkbnRnbGV6cjFhMSJ9.Hp9287N1c9f4JPrfEHoixg';
-  var map = L.mapbox.map('map')
-      .setView([55.239047, 10.650401], 10)
-      .addLayer(L.mapbox.styleLayer('mapbox://styles/mapbox/streets-v11'));
-  </script> -->
-    </ion-content>
-  </body>
-
-
+</ion-content>

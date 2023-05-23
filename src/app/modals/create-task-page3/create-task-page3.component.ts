@@ -8,7 +8,6 @@ import { Geolocation, Position } from '@capacitor/geolocation';
 import { environment } from 'src/environments/environment';
 
 const mapboxgl = require('mapbox-gl');
-
 mapboxgl.accessToken = environment.mapboxKey;
 
 @Component({
@@ -21,7 +20,6 @@ mapboxgl.accessToken = environment.mapboxKey;
 export class CreateTaskPage3Component  implements OnInit {
 
   location!: Position;
-  gps: string = ""; 
   @ViewChildren(Image, { read: ElementRef }) circle!: ElementRef;
 
    constructor(private modalController: ModalController, private databaseService: DatabaseService) {
@@ -51,7 +49,7 @@ export class CreateTaskPage3Component  implements OnInit {
     // This output's the Y coord of the click
     console.log(event.clientY);
     let style: string = "left:" + event.clientX + "px, top:" + event.clientY + "px"; // I have no idea dude
-    this.circle.nativeElement.setAttribute('style', style);
+    //this.circle.nativeElement.setAttribute('style', style);
   }
 
   followPos() {
@@ -69,8 +67,7 @@ export class CreateTaskPage3Component  implements OnInit {
   }
 
   finishTaskModal(){
-    console.log(this.gps);
-    this.databaseService.createTask.gps = this.gps;
+    this.databaseService.createTask.gps = this.location.coords.latitude.toString() +"," + this.location.coords.longitude.toString();
     console.log(JSON.stringify(this.databaseService.createTask));
   }
   

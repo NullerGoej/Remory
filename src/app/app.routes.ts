@@ -17,9 +17,5 @@ export const routes: Routes = [
     path: 'forgot-password',
     loadComponent: () => import('./forgot-password/forgot-password.page').then( m => m.ForgotPasswordPage)
   },
-  {
-    path: 'gps',
-    loadComponent: () => import('./gps/gps.page').then( m => m.GpsPage)
-  },
 
 ];

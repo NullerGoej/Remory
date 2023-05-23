@@ -37,7 +37,7 @@ ion-checkbox {
 
 .checkmarkButtonChecked{ 
     border-radius: 15px;
-    border: solid green 2px;
+    border: solid green 3px;
     margin: -10px; // had 10 as default
     margin-top: 5px;
     scale: 0.8;
@@ -68,7 +68,7 @@ ion-checkbox {
 
 ion-item{
     border-radius: 15px;
-    border: solid rgba(0, 128, 0, 0) 2px;
+    border: solid rgba(0, 128, 0, 0) 3px;
     margin: 10px;
     transition: 200ms;
 }

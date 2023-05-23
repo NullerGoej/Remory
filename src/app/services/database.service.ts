@@ -10,7 +10,7 @@ import { Task } from '../models/task';
 })
 export class DatabaseService {
 
-  loggedInUSer!: User;
+  loggedInUSer: User = new User();
   tasks: Task[] = [];
 
   createTask: Task = new Task();
@@ -18,6 +18,7 @@ export class DatabaseService {
   constructor(private taskService: TaskService, private userService: UserService, private router: Router) {
     //this.getAllData();
     //this.getAllTasks();
+    this.loggedInUSer.user_id = 1; // cheating
     this.getUser(1) // get user with id 1
   }
 

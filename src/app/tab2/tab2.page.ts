@@ -31,7 +31,6 @@ export class Tab2Page {
   categoryService: CategoryService = inject(CategoryService);
 
   tasks: Task[] = [];
-  tasks_dones: TaskDone[] = []; 
   currentCategoryTasks: Task[] = [];
   categories: Category[] = [];
 
@@ -41,16 +40,12 @@ export class Tab2Page {
   constructor(private modalController: ModalController) { // shift + alt + f to format in vs code
    this.getAllTasks(); // this is the first thing we need to get
    this.getAllCategories();
+
    setInterval(() => { this.updateTime() }, 1000 * 60);
-
-    let d = new Date();
-    d.setDate(d.getDate() + 1)
-
-   this.checkDate(d);
   }
 
-  updateTime(){
-    this.today = new Date(); // then call and check if there are new tasks
+  updateTime(){ // update the task list every minute
+    this.today = new Date();
     //this.getAllTasks(); // this add more task to the existing ones, no good
   }
 
@@ -68,10 +63,9 @@ export class Tab2Page {
       await modal.present(); 
   }
 
-  // need to check the timestamp and all that, though maybe that should be checked in a service
   // need to check if a task_done with the specific task_id has a date equal to today to know weather or not the task has been completed
 
-  async getAllTasks(): Promise<void> {
+  async getAllTasks(): Promise<void> { // it doesn't display all of them
     this.taskService.getAll().subscribe((data: any) => {
       this.tasks = data;
       for (let i = 0; i < this.tasks.length; i++) { // danm object reference
@@ -83,17 +77,8 @@ export class Tab2Page {
   async getAllCategories(): Promise<void> {
     let cat = new Category();
     cat.title = "All";
-    this.categoryService.getAll().subscribe((data: any) => { 
-      this.categories = data; // TODO, only get the categories for that user!!
-
-      // you should be able to do that with the api route and param
-      // for now though
-
-      for (let i = 0; i < this.categories.length; i++) {
-        if(this.categories[i].user_id != this.dbService?.getLoggedInUser().user_id) {
-          this.categories.splice(i, 1);
-        }
-      }
+    this.categoryService.getAllByUserId(this.dbService.getLoggedInUser().user_id).subscribe((data: any) => { 
+      this.categories = data; 
       this.categories.splice(0,0, cat);
       this.categories.join();
     });
@@ -107,54 +92,48 @@ export class Tab2Page {
   // if yes we assign them a specific style
   // if no, it has it's default style
 
-  sortTasks(){
-  
-  }
-
   async checkTasksDone(){
-
     // I have a list of tasks depending on the category
     // with that list i need to check weather they are done
 
     const taskItems = this.taskItem.toArray();
-    // we get a list of tasks
-      await this.taskDoneService.getAll().subscribe((data: any) =>{
-        this.tasks_dones = data; 
-      });
+  
       for (let i = 0; i < this.currentCategoryTasks.length; i++){
-        for (let j = 0; j < this.tasks_dones.length; j++){
+        for (let j = 0; j < this.tasks.length; j++){
 
-          if(this.currentCategoryTasks[i].task_id == this.tasks_dones[j].task_id){
+          if(this.currentCategoryTasks[i].task_id == this.tasks[j].task_id){
             // we have a task and it's task done id
-            if(this.checkDate(this.tasks_dones[j].timeStamp)){
-              
-              let el = taskItems[i].nativeElement;
-              el.children[1].children[1].classList.add('hideDescription');  
-              el.classList.add('checkmarkButtonChecked'); 
-              // we got the value we wanted for this task, go next
-              break;
+            // we need to check if the timestamp of task_done is equal to todays date, if yes, the task is done
+            
+            // a task will also return all it's associated task_done, in a list
+          
+            let td = this.tasks[j].task_dones;
+            for (let x = 0; x < td.length; x++) {
+              // if we find one with a date of today, that task has been done and should be true
+              if(this.checkDate(td[x].timestamp)){
+                let el = taskItems[i].nativeElement;
+                el.children[1].children[1].classList.add('hideDescription');  
+                el.classList.add('checkmarkButtonChecked'); 
+                // we got the value we wanted for this task, go next
+                break;
+              } 
             }
-            // if we find one with a date of today, that task has been done and should be true
           }
         }
       }
-    // we check them against task_done
-    // we then assign them a on or off value
-    // we then call toggleCheckboxes which will apply the style
   }
 
-  checkDate(date: Date): boolean {
+  checkDate(date: Date): boolean { // it says getDate is not a function, it fails miserably
     //console.log(this.today.toDateString()); // toDateString writes the month in letters, aka useless
     var dateToday = this.today.getDate() + '/' + (this.today.getMonth()+1) + '/' + this.today.getFullYear(); // why isn't there a function for this?
     var checkDate = date.getDate() + '/' + (date.getMonth()+1) + '/' + date.getFullYear(); 
 
-
-    var tommorowDateTime = new Date().getTime() + (1 * 24 * 60 * 60 * 1000); // 24 hours in the future
-    var currentDateTime = date.getTime() + (1 * 24 * 60 * 60 * 1000);
+    // var tommorowDateTime = new Date().getTime() + (1 * 24 * 60 * 60 * 1000); // 24 hours in the future
+    // var currentDateTime = date.getTime() + (1 * 24 * 60 * 60 * 1000);
                                      
-    if (currentDateTime < tommorowDateTime) { // wait how do we also not get past ones?
+    // if (currentDateTime < tommorowDateTime) { 
       
-    }
+    // }
 
     if(checkDate == dateToday) return true; // well we need to check if it is within 24 hours of today
     return false;
@@ -162,21 +141,15 @@ export class Tab2Page {
 
   checkOfTask(task: any){
     //alert(JSON.stringify(task));
-    // what if you check it on and then check it of again?
-    // you should send it when you're sure they are done, with sync
-    // there should not be more than one task done in one day!
-    // does the database check that? it could right?  
 
     // we post a task done object
-    this.today.setDate(Date.now());
-    let taskDone = new TaskDone(this.today, task.task_id);
+    let taskDone = new TaskDone(new Date(), task.task_id); // the database sets the date, can't leave timestamp null thouugh
     console.log(JSON.stringify(taskDone)); // the object is identical to the one I send with postman, yet it throws an error when posting it from here
     this.taskDoneService.create(taskDone).subscribe((data: any) => {
       //get error message at the very least!
       let d = data;
     }); 
 
-    // dude I'm so confused how to do this
     this.toggleCheckBoxes();
   }
 
@@ -210,7 +183,6 @@ export class Tab2Page {
       return "All";
   }
 
-
   // how would you set them based on the list of taks from the database?
   toggleCheckBoxes(){ // you only select one, could you somehow just send the selected element?
     const taskItems = this.taskItem.toArray();
@@ -218,10 +190,12 @@ export class Tab2Page {
       let el = taskItems[i].nativeElement;
       if (el.children[0].checked === true) { 
         el.children[1].children[1].classList.add('hideDescription');  // sigh what a big mess of code
+        el.children[2].classList.add('hideDescription');  
         el.classList.add('checkmarkButtonChecked'); 
       }
       else{
         el.children[1].children[1].classList.remove('hideDescription'); 
+        el.children[2].classList.remove('hideDescription');  
         el.classList.remove('checkmarkButtonChecked');
       } 
     }

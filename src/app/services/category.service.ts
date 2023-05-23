@@ -16,6 +16,10 @@ export class CategoryService {
     return this.http.get<Category[]>(baseUrl);
   }
 
+  getAllByUserId(id: number){
+    return this.http.get<Category[]>(baseUrl + "?userid=" + id);
+  }
+
   get(id: number): Observable<Category> {
     return this.http.get<Category>(`${baseUrl}/${id}`);
   }

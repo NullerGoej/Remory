@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 import { ExploreContainerComponent } from '../explore-container/explore-container.component';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-tab1',
@@ -11,4 +12,7 @@ import { ExploreContainerComponent } from '../explore-container/explore-containe
 })
 export class Tab1Page {
   constructor() {}
+
+  ngOnInit() {}
+
 }

@@ -51,7 +51,7 @@ export class Tab2Page {
 
   updateTime(){
     this.today = new Date(); // then call and check if there are new tasks
-    this.getAllTasks(); // this add more task to the existing ones, no good
+    //this.getAllTasks(); // this add more task to the existing ones, no good
   }
 
   async presentCreateCategoryModal() { // still a bunch of code just to use a object/component
@@ -90,7 +90,7 @@ export class Tab2Page {
       // for now though
 
       for (let i = 0; i < this.categories.length; i++) {
-        if(this.categories[i].user_id != this.dbService.getLoggedInUser().user_id) {
+        if(this.categories[i].user_id != this.dbService?.getLoggedInUser().user_id) {
           this.categories.splice(i, 1);
         }
       }

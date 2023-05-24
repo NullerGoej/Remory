@@ -66,7 +66,7 @@ export class Tab2Page {
   // need to check if a task_done with the specific task_id has a date equal to today to know weather or not the task has been completed
 
   async getAllTasks(): Promise<void> { // it doesn't display all of them
-    this.taskService.getAll().subscribe((data: any) => {
+    this.taskService.getAllToday().subscribe((data: any) => {
       this.tasks = data;
       for (let i = 0; i < this.tasks.length; i++) { // danm object reference
         this.currentCategoryTasks.push(this.tasks[i]);   

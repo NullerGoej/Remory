@@ -35,7 +35,7 @@ export class DatabaseService {
   }
 
   private getAllData(): void {
-    this.taskService.getAll()
+    this.taskService.getAllToday()
       .subscribe(
         data => {
           console.log(data);

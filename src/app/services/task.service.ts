@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Task } from '../models/task';
 
-const baseUrl = 'http://moedekjaer.dk:8080/api/tasks/today';
+const baseUrl = 'http://moedekjaer.dk:8080/api/tasks';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +14,10 @@ export class TaskService {
 
   getAll(): Observable<Task[]> {
     return this.http.get<Task[]>(baseUrl);
+  }
+
+  getAllToday(): Observable<Task[]> {
+    return this.http.get<Task[]>(baseUrl + "/today");
   }
 
   get(id: number): Observable<Task> {

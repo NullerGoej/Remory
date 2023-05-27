@@ -67,6 +67,11 @@ export class Tab2Page {
       await modal.present(); 
   }
 
+  fixTime(date: Date){  // don't understand why it can't use the date pipe
+    let d = date.toString();
+    return d.slice(0, d.length -3);
+  }
+
   // need to check if a task_done with the specific task_id has a date equal to today to know weather or not the task has been completed
 
   async getAllTasks(): Promise<void> { // it doesn't display all of them

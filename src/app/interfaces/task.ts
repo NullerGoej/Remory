@@ -2,7 +2,7 @@ export interface Task {
     task_id: number;
     title: string;
     description: string;
-    time: string;
+    time: Date;
     start_date: Date;
     repeat: string;
     reminder: number;

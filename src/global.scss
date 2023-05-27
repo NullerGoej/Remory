@@ -27,7 +27,7 @@
 
 @import 'mapbox-gl/dist/mapbox-gl.css';
 
-#map{
+.map{
     position: absolute;
     top: 0;
     bottom: 0;
@@ -36,4 +36,13 @@
 
 :root {
     --ion-font-family: "Atkinson Hyperlegible";
+}
+
+// horizontal centering
+.task-number{
+    font-size: 14px;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    text-align: center;
 }

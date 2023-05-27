@@ -20,6 +20,7 @@ mapboxgl.accessToken = environment.mapboxKey;
 export class CreateTaskPage3Component  implements OnInit {
 
   location!: Position;
+  map!: any;
   markerLocation: {longitude: number, latitude: number} = {longitude: 0, latitude: 0};
   @ViewChildren(Image, { read: ElementRef }) circle!: ElementRef;
 
@@ -33,7 +34,7 @@ export class CreateTaskPage3Component  implements OnInit {
   }
 
   showMap() {
-    const map = new mapboxgl.Map({
+    this.map = new mapboxgl.Map({
       container: 'map', // container ID
       style: 'mapbox://styles/mapbox/streets-v12', // style URL
       // starting position [lng, lat] // no idea if you could dynamicly updated this
@@ -44,11 +45,14 @@ export class CreateTaskPage3Component  implements OnInit {
     const marker = new mapboxgl.Marker({
       draggable: false
       }).setLngLat([this.location.coords.longitude, this.location.coords.latitude])
-      .addTo(map);
-    map.on('click', (e: { lngLat: { lng: any; lat: any; }; }) => {
+      .addTo(this.map );
+    this.map.on('click', (e: { lngLat: { lng: any; lat: any; }; }) => {
       marker.setLngLat([e.lngLat.lng, e.lngLat.lat]);
       this.markerLocation.longitude = e.lngLat.lng;
       this.markerLocation.latitude = e.lngLat.lat;
+    });
+    this.map.once('load', () => {
+      this.map.resize();
     });
   }
 

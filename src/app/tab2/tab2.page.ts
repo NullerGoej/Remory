@@ -3,7 +3,7 @@ import { IonChip, IonItem, IonicModule, ModalController } from '@ionic/angular';
 import { ExploreContainerComponent } from '../explore-container/explore-container.component';
 import { CommonModule } from '@angular/common';
 import { Task } from '../interfaces/task';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { DatabaseService } from '../services/database.service';
 import { TaskService } from '../services/task.service';
 import { CategoryService } from '../services/category.service';
@@ -37,7 +37,7 @@ export class Tab2Page {
   @ViewChildren(IonChip, { read: ElementRef }) taskChips!: QueryList<ElementRef>;
   @ViewChildren(IonItem, { read: ElementRef }) taskItem!: QueryList<ElementRef>;
 
-  constructor(private modalController: ModalController) { // shift + alt + f to format in vs code
+  constructor(private modalController: ModalController, private router: Router) { // shift + alt + f to format in vs code
    this.getAllTasks(); // this is the first thing we need to get
    this.getAllCategories();
 
@@ -47,6 +47,10 @@ export class Tab2Page {
   updateTime(){ // update the task list every minute
     this.today = new Date();
     //this.getAllTasks(); // this add more task to the existing ones, no good
+  }
+
+  pageInfoClicked(task: Task){
+    this.router.navigate(["tabs/tab2/task-info/" + JSON.stringify(task)]);
   }
 
   async presentCreateCategoryModal() { // still a bunch of code just to use a object/component

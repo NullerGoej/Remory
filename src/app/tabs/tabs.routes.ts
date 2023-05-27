@@ -34,7 +34,7 @@ export const routes: Routes = [
     pathMatch: 'full',
   },
   {
-    path: 'tabs/tab2/task-info', // :id   or something
+    path: 'tabs/tab2/task-info/:object',
     loadComponent: () => import('../tab2/task-info/task-info.page').then( m => m.TaskInfoPage)
   },
 

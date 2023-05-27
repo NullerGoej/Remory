@@ -53,6 +53,7 @@ export class CreateTaskPage3Component  implements OnInit {
     });
     this.map.once('load', () => {
       this.map.resize();
+      document.getElementById('map')!.style.opacity = "1";
     });
   }
 

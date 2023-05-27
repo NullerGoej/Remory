@@ -1,3 +1,32 @@
 .trash{
     color:#D3264F
 }
+
+ion-toolbar{
+    color: white;
+    --ion-toolbar-background: #121212;
+}
+
+ion-tabs{
+    --ion-tab-bar-color: white;
+    --ion-tab-bar-background: #121212;
+}
+
+ion-fab-button{
+    margin-bottom: 100px;
+    --background:#3872D4;
+}
+
+h2 p{
+    margin-left: 11px; // big hacks
+    font-size: large;
+    margin-bottom: -8px;
+    font-weight: 700;
+}
+
+ion-item{
+    border-radius: 15px;
+    border: solid rgba(0, 128, 0, 0) 3px;
+    margin: 10px;
+    transition: 200ms;
+}

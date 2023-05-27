@@ -41,6 +41,11 @@ export class TaskInfoPage implements OnInit {
       });
   }
 
+  fixTime(date: Date){  
+    let d = date.toString();
+    return d.slice(0, d.length -3);
+  }
+
   async deleteTask(): Promise<void>{
     this.taskService.delete(this.task.task_id).subscribe((data: any) => {
       let d = data;

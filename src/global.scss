@@ -60,3 +60,15 @@
     display: block;
     text-align: center;
 }
+
+ion-toast.toast {
+    --color: #ffffff;
+    --background: #222222;
+    width: 60%;
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  

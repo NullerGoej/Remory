@@ -17,7 +17,7 @@ export class CreateTaskPage1Component  implements OnInit {
 
   createForm!: FormGroup; 
 
-  constructor(private formBuilder: FormBuilder, private databaseService: DatabaseService, private modalController: ModalController) { }
+  constructor(private formBuilder: FormBuilder, private dbService: DatabaseService, private modalController: ModalController) { }
 
   ngOnInit(){
     this.createForm = this.formBuilder.group({
@@ -37,9 +37,10 @@ export class CreateTaskPage1Component  implements OnInit {
     return `${maxLength - inputLength} characters remaining`;
   }
 
-  openNextTaskModal(){ // it's really slow on transitioning
-    this.databaseService.createTask.title = this.createForm.value.Title;
-    this.databaseService.createTask.description = this.createForm.value.Description;
+  openNextTaskModal(){ 
+    this.dbService.createTask.title = this.createForm.value.Title;
+    this.dbService.createTask.description = this.createForm.value.Description;
+    this.dbService.createTask.category_id = this.createForm.value.Category;
     this.presentCreateTaskPage2Modal();
     //console.log(this.createForm.value);
   }

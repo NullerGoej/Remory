@@ -1,8 +1,11 @@
-import { Component, OnInit, ViewChild} from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { IonChip, IonModal, IonicModule, ModalController } from '@ionic/angular';
 import { RouterModule } from '@angular/router';
+import { Category } from 'src/app/models/category';
+import { IonicModule, ModalController } from '@ionic/angular';
+import { CategoryService } from 'src/app/services/category.service';
+import { DatabaseService } from 'src/app/services/database.service';
 
 @Component({
   selector: 'app-create-category',
@@ -13,15 +16,14 @@ import { RouterModule } from '@angular/router';
 })
 export class CreateCategoryComponent{
 
-  changeForm!: FormGroup;
+  category!: Category;
+  createForm!: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private modalController: ModalController) { 
-    // we want to show all categories, we want to edit them, and create new ones and delete existing ones, kinda like the admin page in wannaGo
-  }
+  constructor(private formBuilder: FormBuilder, private categoryService: CategoryService, private dbService: DatabaseService, private modalController: ModalController) { }
 
   ngOnInit(){
-    this.changeForm = this.formBuilder.group({
-      Name: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(20)]]
+    this.createForm = this.formBuilder.group({
+      title: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(20)]]
     });
   }
 
@@ -29,8 +31,14 @@ export class CreateCategoryComponent{
     await this.modalController.dismiss();
   }
 
-  createCategory(){
+  async createCategory(): Promise<void>{
+    this.category = this.createForm.value;
+    this.category.user_id = this.dbService.getLoggedInUser().user_id;
 
+    console.log(this.category);
+    this.categoryService.create(this.createForm.value).subscribe((data: any) => {
+      let d = data;
+    });
   }
 
 }

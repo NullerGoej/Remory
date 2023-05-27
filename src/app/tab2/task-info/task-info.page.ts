@@ -47,5 +47,4 @@ export class TaskInfoPage implements OnInit {
     });
   }
 
-
 }

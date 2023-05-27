@@ -6,6 +6,8 @@ import { FormsModule } from '@angular/forms';
 import { DatabaseService } from 'src/app/services/database.service';
 import { Geolocation, Position } from '@capacitor/geolocation';
 import { environment } from 'src/environments/environment';
+import { TaskService } from 'src/app/services/task.service';
+import { Task } from 'src/app/models/task';
 
 const mapboxgl = require('mapbox-gl');
 mapboxgl.accessToken = environment.mapboxKey;
@@ -24,21 +26,20 @@ export class CreateTaskPage3Component  implements OnInit {
   markerLocation: {longitude: number, latitude: number} = {longitude: 0, latitude: 0};
   @ViewChildren(Image, { read: ElementRef }) circle!: ElementRef;
 
-   constructor(private modalController: ModalController, private databaseService: DatabaseService) {
+  constructor(private modalController: ModalController, private databaseService: DatabaseService, private taskService: TaskService) {
     this.printCurrentPosition();
    }
 
   ngOnInit(){
-    console.log("Page3 writing task object");
-    console.log(JSON.stringify(this.databaseService.createTask));
+    // console.log("Page3 writing task object");
+    // console.log(JSON.stringify(this.databaseService.createTask));
   }
 
   showMap() {
     this.map = new mapboxgl.Map({
       container: 'map', // container ID
       style: 'mapbox://styles/mapbox/streets-v12', // style URL
-      // starting position [lng, lat] // no idea if you could dynamicly updated this
-      center: [this.location.coords.longitude, this.location.coords.latitude],
+      center: [this.location.coords.longitude, this.location.coords.latitude], // every one else writes latitude first, why you not do that mapbox?
       // you should be able to click on a point and choose a radius which would make a circle on the screen
       zoom: 15, // starting zoom
     });
@@ -65,8 +66,19 @@ export class CreateTaskPage3Component  implements OnInit {
   }
 
   finishTaskModal(){
-    this.databaseService.createTask.gps = this.markerLocation.longitude.toString() +"," + this.markerLocation.latitude.toString()
-    console.log(JSON.stringify(this.databaseService.createTask));
+    this.databaseService.createTask.gps = this.markerLocation.latitude.toString() +"," + this.markerLocation.longitude.toString();
+    //console.log(JSON.stringify(this.databaseService.createTask));
+    this.createTask();
+  }
+
+  async createTask(): Promise<void>{
+    console.log(this.databaseService.createTask);
+    this.databaseService.createTask.user_id = this.databaseService.getLoggedInUser().user_id;
+    this.taskService.create(this.databaseService.createTask).subscribe((data: any) => {
+      let d = data;
+      this.databaseService.createTask = new Task();
+      this.cancel();
+    });
   }
   
   async cancel(){

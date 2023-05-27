@@ -20,6 +20,7 @@ mapboxgl.accessToken = environment.mapboxKey;
 export class CreateTaskPage3Component  implements OnInit {
 
   location!: Position;
+  markerLocation: {longitude: number, latitude: number} = {longitude: 0, latitude: 0};
   @ViewChildren(Image, { read: ElementRef }) circle!: ElementRef;
 
    constructor(private modalController: ModalController, private databaseService: DatabaseService) {
@@ -40,23 +41,16 @@ export class CreateTaskPage3Component  implements OnInit {
       // you should be able to click on a point and choose a radius which would make a circle on the screen
       zoom: 15, // starting zoom
     });
-  }
-
-  getCoordinates(event: { clientX: any; clientY: any; }) {
-    // This output's the X coord of the click
-    console.log(event.clientX);
-
-    // This output's the Y coord of the click
-    console.log(event.clientY);
-    let style: string = "left:" + event.clientX + "px, top:" + event.clientY + "px"; // I have no idea dude
-    //this.circle.nativeElement.setAttribute('style', style);
-  }
-
-  followPos() {
-    setTimeout(async () => {
-      const coordinates = await Geolocation.getCurrentPosition();
-      this.location = coordinates;
-    }, 1500);
+    const marker = new mapboxgl.Marker({
+      draggable: true
+      }).setLngLat([this.location.coords.longitude, this.location.coords.latitude])
+      .addTo(map);
+    map.on('click', (e: { lngLat: { lng: any; lat: any; }; }) => {
+      marker.setLngLat([e.lngLat.lng, e.lngLat.lat]);
+      this.markerLocation.longitude = e.lngLat.lng;
+      this.markerLocation.latitude = e.lngLat.lat;
+    });
+    
   }
 
   async printCurrentPosition() {
@@ -67,7 +61,7 @@ export class CreateTaskPage3Component  implements OnInit {
   }
 
   finishTaskModal(){
-    this.databaseService.createTask.gps = this.location.coords.latitude.toString() +"," + this.location.coords.longitude.toString();
+    this.databaseService.createTask.gps = this.markerLocation.longitude.toString() +"," + this.markerLocation.latitude.toString()
     console.log(JSON.stringify(this.databaseService.createTask));
   }
   

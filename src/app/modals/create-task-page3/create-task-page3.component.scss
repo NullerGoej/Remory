@@ -1,3 +1,5 @@
+
+
 ion-toolbar{
     color: white;
     --ion-toolbar-background: #121212;
@@ -25,7 +27,9 @@ h2 {
     font-weight: 700;
 }
 
-.map{
+body { margin:0; padding:0; }
+
+#map{
     position: absolute;
     top: 0;
     bottom: 0;

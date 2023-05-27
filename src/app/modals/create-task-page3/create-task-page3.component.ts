@@ -42,7 +42,7 @@ export class CreateTaskPage3Component  implements OnInit {
       zoom: 15, // starting zoom
     });
     const marker = new mapboxgl.Marker({
-      draggable: true
+      draggable: false
       }).setLngLat([this.location.coords.longitude, this.location.coords.latitude])
       .addTo(map);
     map.on('click', (e: { lngLat: { lng: any; lat: any; }; }) => {
@@ -50,7 +50,6 @@ export class CreateTaskPage3Component  implements OnInit {
       this.markerLocation.longitude = e.lngLat.lng;
       this.markerLocation.latitude = e.lngLat.lat;
     });
-    
   }
 
   async printCurrentPosition() {

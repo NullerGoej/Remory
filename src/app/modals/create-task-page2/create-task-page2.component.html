@@ -45,14 +45,18 @@
         
         <div>
           <h2>Category</h2>
-          <div *ngIf="categories.length > 1; else pop">
+          <div *ngIf="categories.length > 3; else pop">
             <ion-select interface="popover" label-placement="floating" fill="solid" (ionChange)="choseCategory($event)">
               <ion-select-option [value]="category" *ngFor="let category of categories">{{category.title}}</ion-select-option>
             </ion-select>
           </div>
           <ng-template #pop>
-            <ion-list>
-              <ion-checkbox *ngFor="let cat of categories">{{cat.title}}</ion-checkbox>
+            <ion-list class="pop">
+              <ion-radio-group [allowEmptySelection]="true" (ionChange)="choseCategory($event)">
+                <ion-item *ngFor="let cat of categories">
+                  <ion-radio [value]="cat">{{cat.title}}</ion-radio>
+                </ion-item>
+              </ion-radio-group>
             </ion-list>
           </ng-template>
         </div>

@@ -1,0 +1,33 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title class="ion-text-center">Create category</ion-title>
+    <ion-buttons slot="start">
+      <ion-button color="dark" (click)="cancel()">
+        <ion-icon name="arrow-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button style="visibility: hidden;"><ion-icon slot="icon-only"
+          name="arrow-back-outline"></ion-icon></ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="1"></ion-col>
+      <ion-col size="10">
+        <h2>Update category: {{originalCategoryTitle}}</h2>
+        <ion-card class="typingBox">
+          <ion-input class="typingInput" [(ngModel)]="category.title" type="text" placeholder="Update name of category"></ion-input>
+        </ion-card>
+      </ion-col>
+      <ion-col size="1"></ion-col>
+    </ion-row>
+  </ion-grid>
+      <ion-fab (click)="updateCategory()" slot="fixed" vertical="bottom" horizontal="center">
+        <ion-fab-button>
+          <ion-icon name="save-outline"></ion-icon>
+        </ion-fab-button>
+      </ion-fab>
+</ion-content>

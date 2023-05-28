@@ -7,6 +7,7 @@ import { IonicModule, ModalController, PopoverController, ToastController } from
 import { CategoryService } from 'src/app/services/category.service';
 import { DatabaseService } from 'src/app/services/database.service';
 import { PopUpComponent } from 'src/app/components/pop-up/pop-up.component';
+import { EditCategoryComponent } from '../edit-category/edit-category.component';
 
 @Component({
   selector: 'app-create-category',
@@ -33,10 +34,18 @@ export class CreateCategoryComponent{
     });
   }
 
-  async presentPopover(category: Category) { // still a bunch of code just to use a object/component
-    const popover = await this.popoverController.create({  // we create a popup from the existing pop-upComponent class so to say, you could switch out the component to create
+  async presentEditCategoryModal(cat: Category) {
+    const modal = await this.modalController.create({  
+      component: EditCategoryComponent,
+      componentProps: { category: cat } 
+    });
+      await modal.present(); 
+  }
+
+  async presentPopover(category: Category) { 
+    const popover = await this.popoverController.create({ 
       component: PopUpComponent,
-      componentProps: { description: "Are you sure you want to delete " + category.title } // value to send as input param
+      componentProps: { description: "Are you sure you want to delete " + category.title }
     });
 
       await popover.present(); 
@@ -57,15 +66,8 @@ export class CreateCategoryComponent{
   
   deleteCategory(id: number){
     this.categoryService.delete(id).subscribe((data: any) => { 
-      let d = data; 
       this.presentToast(false);
-    });
-  }
-
-  editCategory(id: number){
-    this.categoryService.update(id, this.category).subscribe((data: any) => {  /// TODO implement this
       let d = data; 
-      this.presentToast(false);
     });
   }
 
@@ -75,10 +77,10 @@ export class CreateCategoryComponent{
 
     //console.log(this.category);
     this.categoryService.create(this.createForm.value).subscribe((data: any) => {
-      let d = data;
+      this.presentToast();
       this.category = new Category;
+      let d = data;
     });
-    this.presentToast();
   }
 
   async presentToast(create: boolean = true) {
@@ -92,7 +94,8 @@ export class CreateCategoryComponent{
     });
     
     await toast.present();
-    this.getAllCategories();
+    await this.getAllCategories();
+
   }
 
   async cancel(){

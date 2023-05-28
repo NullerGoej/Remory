@@ -30,17 +30,21 @@
       <ion-col size="1"></ion-col>
       <ion-col size="10">
         <h2>Select category</h2>
-        <ion-chip (click)="presentPopover(category)" class="taskType" *ngFor="let category of categories">{{category.title}}</ion-chip>
+        <div class="selectCat">
+          <ion-item *ngFor="let category of categories">
+            <ion-chip class="taskType">{{category.title}}</ion-chip> 
+            <ion-icon class="edit" slot="end" (click)="presentEditCategoryModal(category)" name="create-outline"></ion-icon>
+            <ion-icon class="trash" slot="end" (click)="presentPopover(category)" name="trash-outline"></ion-icon>
+          </ion-item>
+      </div>
     </ion-col>
     <ion-col size="1"></ion-col>
     </ion-row>
   </ion-grid>
       <ion-fab (click)="createCategory()" slot="fixed" vertical="bottom" horizontal="center">
         <ion-fab-button>
-          <ion-icon name="arrow-forward-outline"></ion-icon>
+          <ion-icon name="save-outline"></ion-icon>
         </ion-fab-button>
       </ion-fab>
-
-
       <ion-toast [isOpen]="isToastOpen"></ion-toast>
 </ion-content>

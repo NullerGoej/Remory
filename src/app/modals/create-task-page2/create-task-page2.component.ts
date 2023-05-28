@@ -54,7 +54,7 @@ export class CreateTaskPage2Component  implements OnInit {
 
   choseCategory(ev: any){
     this.categoryId = ev.target.value.category_id;
-    console.log(this.categoryId);
+    //console.log(this.categoryId);
   }
 
   pinFormatter(value: number) {

@@ -18,16 +18,13 @@ import { CategoryService } from 'src/app/services/category.service';
 })
 export class CreateTaskPage2Component  implements OnInit {
 
-  categoryId: number = 0;
-  categories: Category[] = [];
   sliderVal!: RangeValue;
   sliderText: string = "";
   createForm!: FormGroup; 
 
-  constructor(private formBuilder: FormBuilder, private categoryService: CategoryService, private dbService: DatabaseService, private modalController: ModalController) {}
+  constructor(private formBuilder: FormBuilder, private dbService: DatabaseService, private modalController: ModalController) {}
   
   ngOnInit(){
-    this.getAllCategories();
     this.createForm = this.formBuilder.group({
       Time: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(20)]],
       Repeat: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(10)]],
@@ -39,22 +36,11 @@ export class CreateTaskPage2Component  implements OnInit {
     // console.log(JSON.stringify(this.dbService.createTask));
   }
 
-  async presentCreateTaskPage3Modal() { // still a bunch of code just to use a object/component
-    const modal = await this.modalController.create({  // we create a modal from the existing modal Component class so to say, you could switch out the component to create
+  async presentCreateTaskPage3Modal() { 
+    const modal = await this.modalController.create({ 
       component: CreateTaskPage3Component,
     });
     await modal.present(); 
-  }
-
-  async getAllCategories(): Promise<void> {
-    this.categoryService.getAllByUserId(this.dbService.getLoggedInUser().user_id).subscribe((data: any) => { 
-      this.categories = data; 
-    });
-  }
-
-  choseCategory(ev: any){
-    this.categoryId = ev.target.value.category_id;
-    //console.log(this.categoryId);
   }
 
   pinFormatter(value: number) {
@@ -118,7 +104,6 @@ export class CreateTaskPage2Component  implements OnInit {
     this.dbService.createTask.repeat = this.createForm.value.Repeat;
     this.dbService.createTask.start_date = this.createForm.value.StartDate;
     this.dbService.createTask.reminder = this.createForm.value.Reminder;
-    this.dbService.createTask.category_id = this.categoryId;
     this.presentCreateTaskPage3Modal();
     //console.log(this.createForm.value);
   }

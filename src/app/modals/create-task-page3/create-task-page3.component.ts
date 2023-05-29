@@ -77,11 +77,17 @@ export class CreateTaskPage3Component  implements OnInit {
     this.taskService.create(this.databaseService.createTask).subscribe((data: any) => {
       let d = data;
       this.databaseService.createTask = new Task();
-      this.cancel();
+      this.finish();
     });
   }
   
   async cancel(){
+    await this.modalController.dismiss();
+  }
+
+  async finish(){
+    await this.modalController.dismiss();
+    await this.modalController.dismiss();
     await this.modalController.dismiss();
   }
 }

@@ -17,7 +17,7 @@ import { CategoryService } from 'src/app/services/category.service';
 })
 export class CreateTaskPage1Component  implements OnInit {
 
-  categoryId: number = 0;
+  categoryId?: number = 0;
   categories: Category[] = [];
   createForm!: FormGroup; 
 
@@ -49,6 +49,8 @@ export class CreateTaskPage1Component  implements OnInit {
   }
 
   choseCategory(ev: any){
+    if(ev.target.value == 0) this.categoryId = undefined;
+    else 
       this.categoryId = ev.target.value;
     //console.log(this.categoryId);
   }
@@ -56,7 +58,9 @@ export class CreateTaskPage1Component  implements OnInit {
   openNextTaskModal(){ 
     this.dbService.createTask.title = this.createForm.value.Title;
     this.dbService.createTask.description = this.createForm.value.Description;
-    this.dbService.createTask.category_id = this.categoryId;
+    if(this.dbService.createTask.category_id == 0)this.dbService.createTask.category_id = undefined;
+    else
+      this.dbService.createTask.category_id = this.categoryId;
     this.presentCreateTaskPage2Modal();
     //console.log(this.createForm.value);
   }

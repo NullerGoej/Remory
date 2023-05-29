@@ -144,8 +144,6 @@ export class Tab2Page {
           }
         }
       }
-  
-
 
   checkOfTask(task: any, e: any){
     //alert(JSON.stringify(task));

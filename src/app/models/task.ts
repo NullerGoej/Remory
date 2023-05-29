@@ -8,5 +8,5 @@ export class Task {
     reminder: number = 0;
     gps?: string = undefined;
     user_id: number = 0;
-    category_id: number = 0;
+    category_id?: number = 0;
 }

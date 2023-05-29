@@ -1,21 +1,21 @@
 import { Injectable } from '@angular/core';
 import { TaskService } from './task.service';
-import { Router } from '@angular/router';
 import { UserService } from './user.service';
 import { User } from '../models/user';
 import { Task } from '../models/task';
+import { ModalController } from '@ionic/angular';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DatabaseService {
 
+  createTask: Task = new Task();
+
   loggedInUSer: User = new User();
   tasks: Task[] = [];
 
-  createTask: Task = new Task();
-
-  constructor(private taskService: TaskService, private userService: UserService, private router: Router) {
+  constructor(private taskService: TaskService, private userService: UserService) {
     //this.getAllData();
     //this.getAllTasks();
     this.loggedInUSer.user_id = 1; // cheating

@@ -21,55 +21,56 @@
         <form [formGroup]="createForm">
           <h2>Time</h2>
           <ion-text class="description">Set a time for the task</ion-text>
-        <ion-card class="typingBox">
-          <ion-input class="typingInput" type="time" formControlName="Time"></ion-input>
-        </ion-card>
-        <h2>Repeat</h2>
-        <ion-card class="typingBox">
-          <div class="checkbox-group">
-            <label class="checkbox-container">
-              <input type="checkbox">
-              <span class="checkmark">MON</span>
-            </label>
-            <label class="checkbox-container">
-              <input type="checkbox">
-              <span class="checkmark">TUE</span>
-            </label>
-            <label class="checkbox-container">
-              <input type="checkbox">
-              <span class="checkmark">WED</span>
-            </label>
-            <label class="checkbox-container">
-              <input type="checkbox">
-              <span class="checkmark">THU</span>
-            </label>
-            <label class="checkbox-container">
-              <input type="checkbox">
-              <span class="checkmark">FRI</span>
-            </label>
-            <label class="checkbox-container">
-              <input type="checkbox">
-              <span class="checkmark">SAT</span>
-            </label>
-            <label class="checkbox-container">
-              <input type="checkbox">
-              <span class="checkmark">SUN</span>
-            </label>
-          </div>
-        </ion-card>
-        
-        <h2>Start date</h2>
-        <ion-text class="description">Set a start date</ion-text>
-        <ion-card class="typingBox">
-          <ion-input class="typingInput" type="date" formControlName="StartDate"></ion-input>
-        </ion-card>
-        <h2>Reminder</h2>
-        <ion-text class="description">Set a reminder to go of at: {{sliderText}}</ion-text>
-        <ion-card class="range">
-          <ion-range aria-label="Range with ticks" formControlName="Reminder" (ionChange)="onIonChange($event)" [ticks]="true" [pinFormatter]="pinFormatter" [pin]="true" [snaps]="true" [min]="0" [max]="6"></ion-range>
-        </ion-card>
-      
-      </form>
+          <ion-card class="typingBox">
+            <ion-input class="typingInput" type="time" formControlName="Time"></ion-input>
+          </ion-card>
+          <h2>Repeat</h2>
+          <ion-card class="typingBox">
+            <div class="checkbox-group">
+              <label class="checkbox-container">
+                <ion-checkbox formControlName="Monday" (click)="toggleSpan('check-monday')"><span id="check-monday"
+                    class="checkmark">MON</span></ion-checkbox>
+              </label>
+              <label class="checkbox-container">
+                <ion-checkbox formControlName="Tuesday" (click)="toggleSpan('check-tuesday')"><span id="check-tuesday"
+                  class="checkmark">TUE</span></ion-checkbox>
+              </label>
+              <label class="checkbox-container">
+                <ion-checkbox formControlName="Wednesday" (click)="toggleSpan('check-wednesday')"><span id="check-wednesday"
+                  class="checkmark">WED</span></ion-checkbox>
+              </label>
+              <label class="checkbox-container">
+                <ion-checkbox formControlName="Thursday" (click)="toggleSpan('check-thursday')"><span id="check-thursday"
+                  class="checkmark">THU</span></ion-checkbox>
+              </label>
+              <label class="checkbox-container">
+                <ion-checkbox formControlName="Friday" (click)="toggleSpan('check-friday')"><span id="check-friday"
+                  class="checkmark">FRI</span></ion-checkbox>
+              </label>
+              <label class="checkbox-container">
+                <ion-checkbox formControlName="Saturday" (click)="toggleSpan('check-saturday')"><span id="check-saturday"
+                  class="checkmark">SAT</span></ion-checkbox>
+              </label>
+              <label class="checkbox-container">
+                <ion-checkbox formControlName="Sunday" (click)="toggleSpan('check-sunday')"><span id="check-sunday"
+                  class="checkmark">SUN</span></ion-checkbox>
+              </label>
+            </div>
+          </ion-card>
+
+          <h2>Start date</h2>
+          <ion-text class="description">Set a start date</ion-text>
+          <ion-card class="typingBox">
+            <ion-input class="typingInput" type="date" formControlName="StartDate"></ion-input>
+          </ion-card>
+          <h2>Reminder</h2>
+          <ion-text class="description">Set a reminder to go of at: {{sliderText}}</ion-text>
+          <ion-card class="range">
+            <ion-range aria-label="Range with ticks" formControlName="Reminder" (ionChange)="onIonChange($event)"
+              [ticks]="true" [pinFormatter]="pinFormatter" [pin]="true" [snaps]="true" [min]="0" [max]="6"></ion-range>
+          </ion-card>
+
+        </form>
       </ion-col>
       <ion-col size="1"></ion-col>
     </ion-row>

@@ -85,8 +85,9 @@ ion-range::part(knob) {
     margin: 5px;
   }
   
-  .checkbox-container input[type="checkbox"] {
-    display: none;
+  .checkbox-container ion-checkbox {
+    --size: 0px;
+    --border-width: 0px;
   }
   
   .checkbox-container .checkmark {
@@ -100,7 +101,7 @@ ion-range::part(knob) {
     font-weight: bold;
   }
   
-  .checkbox-container input[type="checkbox"]:checked + .checkmark {
+  .task-checked {
     background-color: #3872D4;
     color: #fff;
   }

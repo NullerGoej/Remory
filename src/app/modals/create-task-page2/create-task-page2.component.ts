@@ -21,6 +21,7 @@ export class CreateTaskPage2Component  implements OnInit {
   sliderVal!: RangeValue;
   sliderText: string = "";
   createForm!: FormGroup;
+  lastClick: number = 0;
 
   constructor(private formBuilder: FormBuilder, private dbService: DatabaseService, private modalController: ModalController) {}
   
@@ -30,6 +31,13 @@ export class CreateTaskPage2Component  implements OnInit {
       Repeat: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(10)]],
       StartDate: ['', [Validators.required]],
       Reminder: ['', [Validators.required, Validators.min(1), Validators.max(7)]],
+      Monday: [false],
+      Tuesday: [false],
+      Wednesday: [false],
+      Thursday: [false],
+      Friday: [false],
+      Saturday: [false],
+      Sunday: [false]
     });
 
     // console.log("Page2 writing task object");
@@ -104,12 +112,42 @@ export class CreateTaskPage2Component  implements OnInit {
     this.dbService.createTask.repeat = this.createForm.value.Repeat;
     this.dbService.createTask.start_date = this.createForm.value.StartDate;
     this.dbService.createTask.reminder = this.createForm.value.Reminder;
+    let days: number[] = [];
+    if(this.createForm.value.Monday){
+      days.push(1);
+    }
+    if(this.createForm.value.Tuesday){
+      days.push(2);
+    }
+    if(this.createForm.value.Wednesday){
+      days.push(3);
+    }
+    if(this.createForm.value.Thursday){
+      days.push(4);
+    }
+    if(this.createForm.value.Friday){
+      days.push(5);
+    }
+    if(this.createForm.value.Saturday){
+      days.push(6);
+    }
+    if(this.createForm.value.Sunday){
+      days.push(7);
+    }
+    this.dbService.createTask.repeat = days.toString();
     this.presentCreateTaskPage3Modal();
-    //console.log(this.createForm.value);
   }
 
   async cancel(){
     await this.modalController.dismiss();
+  }
+
+  toggleSpan(span: string){
+    if(this.lastClick % 2 == 0){
+      let element = document.getElementById(span);
+      element?.classList.toggle("task-checked");
+    }
+    this.lastClick++;
   }
 
 }

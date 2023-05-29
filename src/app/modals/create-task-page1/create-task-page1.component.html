@@ -21,13 +21,31 @@
         <form [formGroup]="createForm">
           <h2>Title</h2>
           <ion-card class="typingBox">
-            <ion-input class="typingInput" type="text" formControlName="Title"></ion-input>
+            <ion-input type="text" formControlName="Title"></ion-input>
           </ion-card>
           <h2>Description</h2>
           <ion-card class="typingBox">
             <ion-textarea label="Write a helpful description" labelPlacement="floating" [counter]="true" maxlength="100"
               [counterFormatter]="customCounterFormatter" formControlName="Description"></ion-textarea>
           </ion-card>
+
+          <h2>Category</h2>
+          <div *ngIf="categories.length > 3; else pop">
+            <ion-select interface="popover" label-placement="floating" fill="solid" (ionChange)="choseCategory($event)">
+              <ion-select-option value="0">None</ion-select-option>
+              <ion-select-option [value]="category.category_id" *ngFor="let category of categories">{{category.title}}</ion-select-option>
+            </ion-select>
+          </div>
+          <ng-template #pop>
+            <ion-list class="pop">
+              <ion-radio-group [allowEmptySelection]="true" (ionChange)="choseCategory($event)">
+                <ion-item *ngFor="let cat of categories">
+                  <ion-radio [value]="cat.category_id">{{cat.title}}</ion-radio>
+                </ion-item>
+              </ion-radio-group>
+            </ion-list>
+          </ng-template>
+     
         </form>
       </ion-col>
       <ion-col size="1"></ion-col>

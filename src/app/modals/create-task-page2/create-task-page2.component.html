@@ -65,27 +65,10 @@
         </ion-card>
         <h2>Reminder</h2>
         <ion-text class="description">Set a reminder to go of at: {{sliderText}}</ion-text>
-        <ion-card class="typingBox">
+        <ion-card class="range">
           <ion-range aria-label="Range with ticks" formControlName="Reminder" (ionChange)="onIonChange($event)" [ticks]="true" [pinFormatter]="pinFormatter" [pin]="true" [snaps]="true" [min]="0" [max]="6"></ion-range>
         </ion-card>
-        
-        <div>
-          <h2>Category</h2>
-          <div *ngIf="categories.length > 3; else pop">
-            <ion-select interface="popover" label-placement="floating" fill="solid" (ionChange)="choseCategory($event)">
-              <ion-select-option [value]="category" *ngFor="let category of categories">{{category.title}}</ion-select-option>
-            </ion-select>
-          </div>
-          <ng-template #pop>
-            <ion-list class="pop">
-              <ion-radio-group [allowEmptySelection]="true" (ionChange)="choseCategory($event)">
-                <ion-item *ngFor="let cat of categories">
-                  <ion-radio [value]="cat">{{cat.title}}</ion-radio>
-                </ion-item>
-              </ion-radio-group>
-            </ion-list>
-          </ng-template>
-        </div>
+      
       </form>
       </ion-col>
       <ion-col size="1"></ion-col>

@@ -9,5 +9,4 @@ export class Task {
     gps?: string = undefined;
     user_id: number = 0;
     category_id: number = 0;
-    type: string = "";
 }

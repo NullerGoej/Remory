@@ -9,6 +9,7 @@ export interface Task {
     gps: string;
     user_id: number;
     category_id: number;
+    checked: boolean;
     task_dones: [
         {
             task_done_id: number,

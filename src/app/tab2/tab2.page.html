@@ -12,7 +12,7 @@
   <ion-list>
     <ion-header class="taskTypeHeader">{{chosenCategory}}</ion-header>
     <ion-item *ngFor="let task of currentCategoryTasks"> 
-      <ion-checkbox checked="false" (ionChange)="checkOfTask(task)" class="checkmarkButton"></ion-checkbox>
+      <ion-checkbox [checked]="task.checked" (ionChange)="checkOfTask(task)" class="checkmarkButton"></ion-checkbox>
       <ion-label >
         <h2>{{task.title}}</h2>
         <p>{{task.description}}</p>

@@ -22,7 +22,7 @@ export class CreateTaskPage2Component  implements OnInit {
   categories: Category[] = [];
   sliderVal!: RangeValue;
   sliderText: string = "";
-  createForm!: FormGroup; 
+  createForm!: FormGroup;
 
   constructor(private formBuilder: FormBuilder, private categoryService: CategoryService, private dbService: DatabaseService, private modalController: ModalController) {}
   

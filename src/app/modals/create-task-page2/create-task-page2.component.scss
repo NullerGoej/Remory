@@ -104,3 +104,41 @@ ion-range::part(knob) {
     background: #3872D4;
     scale: 2;
   }
+
+
+
+
+  .checkbox-group {
+    display: flex;
+    flex-wrap: wrap; /* Wrap the checkboxes into multiple lines */
+    justify-content: center;
+    margin: 10px;
+  }
+  
+  .checkbox-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 5px;
+  }
+  
+  .checkbox-container input[type="checkbox"] {
+    display: none;
+  }
+  
+  .checkbox-container .checkmark {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 3rem; /* Adjust the size of the checkbox */
+    height: 3rem; /* Adjust the size of the checkbox */
+    border-radius: 50%; /* Make the checkbox round */
+    border: 2.4px solid #3872D4;
+    font-weight: bold;
+  }
+  
+  .checkbox-container input[type="checkbox"]:checked + .checkmark {
+    background-color: #3872D4;
+    color: #fff;
+  }
+  

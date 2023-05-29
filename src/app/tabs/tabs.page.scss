@@ -8,6 +8,11 @@ ion-tabs{
     --ion-tab-bar-background: #121212;
 }
 
+ion-tab-button{
+    --color:white;
+    --color-selected:#3872D4;
+}
+
 .signout{
     margin: 20px;
 }

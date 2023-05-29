@@ -30,6 +30,7 @@
           </ion-card>
 
           <h2>Category</h2>
+          <ion-text class="description">(Optional)</ion-text>
           <div *ngIf="categories.length > 3; else pop">
             <ion-select interface="popover" label-placement="floating" fill="solid" (ionChange)="choseCategory($event)">
               <ion-select-option value="0">None</ion-select-option>

@@ -108,14 +108,13 @@ export class Tab2Page {
   // loop function execute checkTasksDone() when tasks are loaded
   tasksStyling(){
     setTimeout(() => {
-      console.log(this.taskItem.length);
       if(this.taskItem.length == 0) {
         this.tasksStyling();
       } 
       else {
         this.checkTasksDone();
       } 
-    }, 1000);
+    }, 50);
   }
 
   async checkTasksDone(){

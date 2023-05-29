@@ -18,6 +18,7 @@ ion-fab-button{
 }
 
 .hideDescription{
+    display: none;
     color: transparent;
     transition: 200ms;
 }
@@ -33,14 +34,16 @@ ion-checkbox {
     --size: 50px;
     --checkbox-background-checked: #3872D4;
     --checkbox-background: #D3264F;
+    transition: 200ms;
 }
 
 .checkmarkButtonChecked{ 
     border-radius: 15px;
-    border: solid green 3px;
-    margin: -10px; // had 10 as default
-    margin-top: 5px;
-    scale: 0.8;
+    border: solid #47B04A 2px;
+
+    ion-checkbox {
+        scale: 0.6;
+    }
 
    // transform: translate(-26px,0);
     transition: 200ms;
@@ -68,7 +71,7 @@ ion-checkbox {
 
 ion-item{
     border-radius: 15px;
-    border: solid rgba(0, 128, 0, 0) 3px;
+    border: solid rgba(0, 128, 0, 0) 2px;
     margin: 10px;
     transition: 200ms;
 }

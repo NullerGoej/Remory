@@ -17,6 +17,10 @@ ion-item{
     --background: #121212;
 }
 
+ion-header::after {
+    background-image: none;
+}
+
 h2 {
     margin-left: 11px; // big hacks
     font-size: large;

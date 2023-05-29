@@ -70,5 +70,9 @@ ion-toast.toast {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-  }
+}
+
+ion-header::after {
+    background-image: none !important;
+}
   

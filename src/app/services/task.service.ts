@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Task } from '../models/task';
 
-const baseUrl = 'http://moedekjaer.dk:8080/api/tasks';
+const baseUrl = 'https://moedekjaer.dk:8443/api/tasks';
 
 @Injectable({
   providedIn: 'root'

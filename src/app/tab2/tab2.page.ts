@@ -40,7 +40,6 @@ export class Tab2Page {
   constructor(private modalController: ModalController, private router: Router) { // shift + alt + f to format in vs code
    this.getAllTasks(); // this is the first thing we need to get
    this.getAllCategories();
-
    setInterval(() => { this.updateTime() }, 1000 * 60);
   }
 
@@ -148,18 +147,24 @@ export class Tab2Page {
     return false;
   }
 
-  checkOfTask(task: any){
+  checkOfTask(task: Task, e: any){
     //alert(JSON.stringify(task));
 
     // we post a task done object
-    let taskDone = new TaskDone(new Date(), task.task_id); // the database sets the date, can't leave timestamp null thouugh
-    console.log(JSON.stringify(taskDone)); // the object is identical to the one I send with postman, yet it throws an error when posting it from here
-    this.taskDoneService.create(taskDone).subscribe((data: any) => {
-      //get error message at the very least!
+    if(e.target.checked){
+      let taskDone = new TaskDone(task.task_id);
+      this.taskDoneService.create(taskDone).subscribe((data: any) => {
+        let d = data;
+      }); 
+    }
+    this.deleteExistingTaskDone(task.task_id);
+    this.toggleCheckBoxes();
+  }
+
+  deleteExistingTaskDone(id: number){
+    this.taskDoneService.deleteTaskDone24Hours(id).subscribe((data: any) => {
       let d = data;
     }); 
-
-    this.toggleCheckBoxes();
   }
 
   choseCategory(categoryTitle: string){      // not very efficient

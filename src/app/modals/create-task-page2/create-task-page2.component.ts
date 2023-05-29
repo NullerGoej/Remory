@@ -6,8 +6,6 @@ import { RouterModule } from '@angular/router';
 import { CreateTaskPage3Component } from '../create-task-page3/create-task-page3.component';
 import { RangeValue } from '@ionic/core';
 import { DatabaseService } from 'src/app/services/database.service';
-import { Category } from 'src/app/models/category';
-import { CategoryService } from 'src/app/services/category.service';
 
 @Component({
   selector: 'app-create-task-page2',

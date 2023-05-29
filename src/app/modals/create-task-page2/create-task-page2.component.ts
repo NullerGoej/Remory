@@ -106,9 +106,16 @@ export class CreateTaskPage2Component  implements OnInit {
   }
 
   openNextTaskModal(){
+    const moment = require('moment');
     this.dbService.createTask.time = this.createForm.value.Time;
+    if (this.createForm.value.Time == "") {
+      this.dbService.createTask.time = moment().format('YYYY-MM-DD 23:59');
+    }
     this.dbService.createTask.repeat = this.createForm.value.Repeat;
     this.dbService.createTask.start_date = this.createForm.value.StartDate;
+    if (this.createForm.value.StartDate == "") {
+      this.dbService.createTask.start_date = moment().format();
+    }
     this.dbService.createTask.reminder = this.createForm.value.Reminder;
     let days: number[] = [];
     if(this.createForm.value.Monday){

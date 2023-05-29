@@ -1,4 +1,4 @@
-import { Component, ElementRef, QueryList, ViewChildren, inject } from '@angular/core';
+import { Component, ElementRef, NgZone, QueryList, ViewChildren, inject } from '@angular/core';
 import { IonChip, IonItem, IonicModule, ModalController } from '@ionic/angular';
 import { ExploreContainerComponent } from '../explore-container/explore-container.component';
 import { CommonModule } from '@angular/common';
@@ -101,6 +101,23 @@ export class Tab2Page {
   // if yes we assign them a specific style
   // if no, it has it's default style
 
+  ngAfterViewInit() {
+    this.tasksStyling();
+  }
+
+  // loop function execute checkTasksDone() when tasks are loaded
+  tasksStyling(){
+    setTimeout(() => {
+      console.log(this.taskItem.length);
+      if(this.taskItem.length == 0) {
+        this.tasksStyling();
+      } 
+      else {
+        this.checkTasksDone();
+      } 
+    }, 1000);
+  }
+
   async checkTasksDone(){
     // I have a list of tasks depending on the category
     // with that list i need to check weather they are done
@@ -119,33 +136,15 @@ export class Tab2Page {
             let td = this.tasks[j].task_dones;
             for (let x = 0; x < td.length; x++) {
               // if we find one with a date of today, that task has been done and should be true
-              if(this.checkDate(td[x].timestamp)){
                 let el = taskItems[i].nativeElement;
                 el.children[1].children[1].classList.add('hideDescription');  
                 el.classList.add('checkmarkButtonChecked'); 
                 // we got the value we wanted for this task, go next
                 break;
-              } 
             }
           }
         }
       }
-  }
-
-  checkDate(date: Date): boolean { // it says getDate is not a function, it fails miserably
-    //console.log(this.today.toDateString()); // toDateString writes the month in letters, aka useless
-    var dateToday = this.today.getDate() + '/' + (this.today.getMonth()+1) + '/' + this.today.getFullYear(); // why isn't there a function for this?
-    var checkDate = date.getDate() + '/' + (date.getMonth()+1) + '/' + date.getFullYear(); 
-
-    // var tommorowDateTime = new Date().getTime() + (1 * 24 * 60 * 60 * 1000); // 24 hours in the future
-    // var currentDateTime = date.getTime() + (1 * 24 * 60 * 60 * 1000);
-                                     
-    // if (currentDateTime < tommorowDateTime) { 
-      
-    // }
-
-    if(checkDate == dateToday) return true; // well we need to check if it is within 24 hours of today
-    return false;
   }
 
   checkOfTask(task: any){

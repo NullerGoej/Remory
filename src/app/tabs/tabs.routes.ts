@@ -23,18 +23,22 @@ export const routes: Routes = [
       },
       {
         path: '',
-        redirectTo: '/tabs/tab1',
+        redirectTo: '/tabs/tab2',
         pathMatch: 'full',
       },
     ],
   },
   {
     path: '',
-    redirectTo: '/tabs/tab1',
+    redirectTo: '/tabs/tab2',
     pathMatch: 'full',
   },
   {
+<<<<<<< HEAD
     path: 'tabs/tab2/task-info',
+=======
+    path: 'tabs/tab2/task-info/:object',
+>>>>>>> a5a0c275f02acccf8bba53b31c1d4fcbc9a31a95
     loadComponent: () => import('../tab2/task-info/task-info.page').then( m => m.TaskInfoPage)
   },
 

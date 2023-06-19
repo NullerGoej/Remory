@@ -1,3 +1,31 @@
+<<<<<<< HEAD
 <p>
   create-task-page3 works!
 </p>
+=======
+<ion-header>
+  <ion-toolbar>
+    <ion-title class="ion-text-center">Location</ion-title>
+    <ion-text class="task-number">Optional (3/3)</ion-text>
+    <ion-buttons slot="start">
+      <ion-button color="dark" (click)="cancel()">
+        <ion-icon name="arrow-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button style="visibility: hidden;"><ion-icon slot="icon-only"
+          name="arrow-back-outline"></ion-icon></ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="map" id="map"></div>
+  <ion-spinner name="crescent" class="map-loading"></ion-spinner>
+  <ion-fab (click)="finishTaskModal()" slot="fixed" vertical="bottom" horizontal="center">
+    <ion-fab-button>
+      <ion-icon name="arrow-forward-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>
+>>>>>>> a5a0c275f02acccf8bba53b31c1d4fcbc9a31a95

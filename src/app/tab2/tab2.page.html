@@ -1,6 +1,7 @@
 <ion-content [fullscreen]="true">
   <br><br><br><br>
 
+<<<<<<< HEAD
   <ion-chip (click)="choseTaskType(category.title)" class="taskType" *ngFor="let category of categories">{{category.title}}</ion-chip>
 
   <ion-list>
@@ -15,6 +16,29 @@
   </ion-list>
 
   <ion-fab routerLink="../../create-event" slot="fixed" vertical="bottom" horizontal="end" class="addButton">
+=======
+  <div class="categoryChips">
+    <ion-chip (click)="choseCategory(category.title)" class="taskType" *ngFor="let category of categories">{{category.title}}</ion-chip>
+    <ion-fab class="smallFab" (click)="presentCreateCategoryModal()" slot="fixed" horizontal="end">
+      <ion-fab-button>
+        <ion-icon class="plusSign" name="add"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+  </div>
+  <ion-list>
+    <ion-header class="taskTypeHeader">{{chosenCategory}}</ion-header>
+    <ion-item *ngFor="let task of currentCategoryTasks"> 
+      <ion-checkbox [checked]="task.checked" (ionChange)="checkOfTask(task, $event)" class="checkmarkButton"></ion-checkbox>
+      <ion-label >
+        <h2>{{task.title}}</h2>
+        <p>{{task.description}}</p>
+      </ion-label>
+      <ion-text>{{fixTime(task.time)}}</ion-text>
+      <ion-icon slot="end" (click)="pageInfoClicked(task)" name="chevron-forward-outline"></ion-icon>
+    </ion-item>
+  </ion-list>
+  <ion-fab (click)="openTaskModal()" slot="fixed" vertical="bottom" horizontal="end">
+>>>>>>> a5a0c275f02acccf8bba53b31c1d4fcbc9a31a95
     <ion-fab-button>
       <ion-icon class="plusSign" name="add"></ion-icon>
     </ion-fab-button>

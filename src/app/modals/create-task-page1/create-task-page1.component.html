@@ -1,3 +1,66 @@
+<<<<<<< HEAD
 <p>
   create-task-page1 works!
 </p>
+=======
+<ion-header>
+  <ion-toolbar>
+    <ion-title class="ion-text-center">Create Tasks</ion-title>
+    <ion-text class="task-number">(1/3)</ion-text>
+    <ion-buttons slot="start">
+      <ion-button color="dark" (click)="cancel()">
+        <ion-icon name="arrow-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button style="visibility: hidden;"><ion-icon slot="icon-only"
+          name="arrow-back-outline"></ion-icon></ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="1"></ion-col>
+      <ion-col size="10">
+        <form [formGroup]="createForm">
+          <h2>Title</h2>
+          <ion-card class="typingBox">
+            <ion-input type="text" formControlName="Title"></ion-input>
+          </ion-card>
+          <h2>Description</h2>
+          <ion-card class="typingBox">
+            <ion-textarea label="Write a helpful description" labelPlacement="floating" [counter]="true" maxlength="100"
+              [counterFormatter]="customCounterFormatter" formControlName="Description"></ion-textarea>
+          </ion-card>
+
+          <h2>Category</h2>
+          <ion-text class="description">(Optional)</ion-text>
+          <div *ngIf="categories.length > 3; else pop">
+            <ion-select interface="popover" label-placement="floating" fill="solid" (ionChange)="choseCategory($event)">
+              <ion-select-option value="0">None</ion-select-option>
+              <ion-select-option [value]="category.category_id" *ngFor="let category of categories">{{category.title}}</ion-select-option>
+            </ion-select>
+          </div>
+          <ng-template #pop>
+            <ion-list class="pop">
+              <ion-radio-group [allowEmptySelection]="true" (ionChange)="choseCategory($event)">
+                <ion-item *ngFor="let cat of categories">
+                  <ion-radio [value]="cat.category_id">{{cat.title}}</ion-radio>
+                </ion-item>
+              </ion-radio-group>
+            </ion-list>
+          </ng-template>
+     
+        </form>
+      </ion-col>
+      <ion-col size="1"></ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-fab (click)="openNextTaskModal()" slot="fixed" vertical="bottom" horizontal="center">
+    <ion-fab-button>
+      <ion-icon name="arrow-forward-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>
+>>>>>>> a5a0c275f02acccf8bba53b31c1d4fcbc9a31a95

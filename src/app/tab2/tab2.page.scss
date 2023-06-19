@@ -2,12 +2,34 @@
     scale: 1.5;
 }
 
+<<<<<<< HEAD
 .addButton{
     margin: 10px;
 }
 
 .description{
     color: rgb(130, 130, 130);
+=======
+ion-fab-button{
+    margin: 10px;
+    --background:#3872D4;
+}
+
+.smallFab{
+    scale: 0.5;
+    transform: translate(0,-35px);
+    // not on line
+}
+
+.categoryChips{
+    margin-left: 5px;
+}
+
+.hideDescription{
+    display: none;
+    color: transparent;
+    transition: 200ms;
+>>>>>>> a5a0c275f02acccf8bba53b31c1d4fcbc9a31a95
 }
 
 ion-list{
@@ -15,6 +37,7 @@ ion-list{
 }
 
 ion-checkbox {
+<<<<<<< HEAD
     --border-radius: 15px;
     margin: -10px;
     --size: 50px;
@@ -35,6 +58,33 @@ ion-checkbox {
 
 .taskTypeHeader{
     margin-left: 10px; // big hacks
+=======
+    scale: 0.7;
+    margin: -10px;
+    --border-radius: 15px;
+    --size: 50px;
+    --checkbox-background-checked: #3872D4;
+    --checkbox-background: #D3264F;
+    transition: 200ms;
+}
+
+.checkmarkButtonChecked{ 
+    border-radius: 15px;
+    border: solid #47B04A 2px;
+
+    ion-checkbox {
+        scale: 0.6;
+    }
+
+   // transform: translate(-26px,0);
+    transition: 200ms;
+
+    // how do I change it to be smaller(narrower) and remove the description, and have the title be centered
+}
+
+.taskTypeHeader{
+    margin-left: 11px; // big hacks
+>>>>>>> a5a0c275f02acccf8bba53b31c1d4fcbc9a31a95
     font-size: large;
     margin-bottom: -8px;
     font-weight: 700;
@@ -53,12 +103,21 @@ ion-checkbox {
 
 ion-item{
     border-radius: 15px;
+<<<<<<< HEAD
     border: solid green 1px;
     margin: 10px;
+=======
+    border: solid rgba(0, 128, 0, 0) 2px;
+    margin: 10px;
+    transition: 200ms;
+>>>>>>> a5a0c275f02acccf8bba53b31c1d4fcbc9a31a95
 }
 
 .checkmarkButton{
     margin-right: 20px;
     margin-left: 0px;
+<<<<<<< HEAD
 
+=======
+>>>>>>> a5a0c275f02acccf8bba53b31c1d4fcbc9a31a95
 }

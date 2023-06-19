@@ -1,6 +1,20 @@
 <ion-header [translucent]="true">
+<<<<<<< HEAD
   <ion-toolbar>
     <ion-title>taskInfo</ion-title>
+=======
+
+
+  <ion-toolbar>
+    <ion-title class="ion-text-center">Task info</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button style="visibility: hidden;"><ion-icon slot="icon-only"
+          name="arrow-back-outline"></ion-icon></ion-button>
+    </ion-buttons>
+>>>>>>> a5a0c275f02acccf8bba53b31c1d4fcbc9a31a95
   </ion-toolbar>
 </ion-header>
 
@@ -11,5 +25,16 @@
     </ion-toolbar>
   </ion-header>
 
+<<<<<<< HEAD
   <h1>You're on task info page, hurray</h1>
+=======
+  <ion-item> 
+    <ion-label>
+      <h2>{{task.title}}</h2>
+      <p>{{task.description}}</p>
+    </ion-label>
+    <ion-text>{{fixTime(task.time)}}</ion-text>
+    <ion-icon class="trash" slot="end" (click)="presentPopover($event)" name="trash-outline"></ion-icon>
+  </ion-item>
+>>>>>>> a5a0c275f02acccf8bba53b31c1d4fcbc9a31a95
 </ion-content>

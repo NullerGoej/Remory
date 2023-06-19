@@ -1,0 +1,108 @@
+ion-toolbar{
+    color: white;
+    --ion-toolbar-background: #121212;
+}
+
+ion-tabs{
+    --ion-tab-bar-color: white;
+    --ion-tab-bar-background: #121212;
+}
+
+ion-fab-button{
+    margin-bottom: 100px;
+    --background:#3872D4;
+}
+
+h2 {
+    margin-left: 11px; // big hacks
+    font-size: large;
+    margin-bottom: -8px;
+    font-weight: 700;
+}
+
+.pop {
+    margin-top: 15px;
+    margin-left: 11px; // big hacks
+    font-size: large;
+    margin-bottom: -8px;
+    font-weight: 700;
+    background: #121212;
+}
+
+ion-range{
+    scale: 0.8;
+    background: #121212;
+}
+
+.range{
+    background: #121212;
+    box-shadow: none;
+}
+
+.description{
+    margin-left: 11px; // big hacks
+    margin-top: 2px;
+    margin-bottom: -8px;
+    font-size: small;
+    color: #797979;
+}
+
+ion-range::part(tick){
+    height: 13px;
+    width: 13px;
+    top: 15px;
+    border-radius: 50%;
+    background: #bde0fe;
+}
+
+ion-range::part(tick-active){
+    height: 13px;
+    width: 13px;
+    top: 15px;
+    border-radius: 50%;
+    background: #3872D4;
+}
+
+ion-range::part(knob) {
+    background: #3872D4;
+    scale: 2;
+  }
+
+
+
+
+  .checkbox-group {
+    display: flex;
+    flex-wrap: wrap; /* Wrap the checkboxes into multiple lines */
+    justify-content: center;
+    margin: 10px;
+  }
+  
+  .checkbox-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 5px;
+  }
+  
+  .checkbox-container ion-checkbox {
+    --size: 0px;
+    --border-width: 0px;
+  }
+  
+  .checkbox-container .checkmark {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 3rem; /* Adjust the size of the checkbox */
+    height: 3rem; /* Adjust the size of the checkbox */
+    border-radius: 50%; /* Make the checkbox round */
+    border: 2.4px solid #3872D4;
+    font-weight: bold;
+  }
+  
+  .task-checked {
+    background-color: #3872D4;
+    color: #fff;
+  }
+  

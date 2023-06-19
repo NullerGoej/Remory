@@ -20,8 +20,8 @@ loginForm!: FormGroup;
 
   ngOnInit() {this.loginForm=this.formBuilder.group({email:["",[Validators.required]] ,password:["",[Validators.required]]});}
 
-  saveChanges() {console.log(this.loginForm.value);
+  saveChanges() {
+    console.log(this.loginForm.value);
   }
-
 
 }
